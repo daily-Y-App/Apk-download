@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Y Apps - မိုဘိုင်းအက်ပ်များ</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; flex-direction: column; align-items: center; color: white; padding: 20px; }
+        .container { max-width: 500px; width: 100%; margin-top: 50px; }
+        .app-card { background: white; border-radius: 15px; padding: 2rem; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); color: #333; }
+        .app-icon { width: 80px; height: 80px; margin-bottom: 15px; border-radius: 15px; }
+        .download-btn { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 12px 30px; border-radius: 25px; font-size: 1.1rem; cursor: pointer; text-decoration: none; display: inline-block; margin-top: 20px; font-weight: bold; }
+        .download-btn:hover { opacity: 0.9; transform: scale(1.05); transition: 0.3s; }
+    </style>
+</head>
+<body>
+
+    <h1>🚀 Y Apps</h1>
+    <p>သင့်လိုအပ်တဲ့ မိုဘိုင်းအက်ပ်များကို ရှာဖွေ Download လုပ်ပါ</p>
+
+    <div class="container">
+        <div class="app-card">
+            <img src="https://cdn-icons-png.flaticon.com/512/2489/2489756.png" class="app-icon" alt="App Icon">
+            <h2>ဝင်ငွေထွက်ငွေမှတ်စု</h2>
+            <p>အလုပ်သမားများအတွက် ဝင်ငွေထွက်ငွေကို အလွယ်တကူ မှတ်တမ်းတင်နိုင်သော အက်ပ်</p>
+            
+            <a href="javascript:void(0)" onclick="downloadWithAd()" class="download-btn">⬇️ Download APK</a>
+        </div>
+    </div>
+
+    <script>
+        function downloadWithAd() {
+            // သင့်ရဲ့ Smartlink
+            var smartLink = "https://www.effectivegatecpm.com/ue0d3gerb?key=aab2b27aee8d50f9a61c7fb136dd54c7";
+            // APK တိုက်ရိုက် Link
+            var apkUrl = "https://github.com/ya292755-cmd/App-d/releases/download/V3/com_daily_wage.apk";
+
+            // ၁။ ကြော်ငြာ Link ကို Tab အသစ်နဲ့ ဖွင့်ပေးမယ်
+            window.open(smartLink, '_blank');
+
+            // ၂။ ၁ စက္ကန့်နေရင် APK ကို စတင်ဒေါင်းလုဒ်လုပ်မယ်
+            setTimeout(function() {
+                window.location.href = apkUrl;
+            }, 1000);
+        }
+    </script>
+
+    <script src="https://pl28319348.effectivegatecpm.com/c8/74/97/c87497e644d07152e4a34b913d1987ac.js"></script>
+
+</body>
+</html>
