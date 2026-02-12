@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Y Apps - APK Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <script type='text/javascript' src='https://pl28344759.effectivegatecpm.com/eb/25/40/eb25401554277dcd898bb0414f0023b0.js'></script>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f1f3f4; color: #333; }
+
+        /* Top Navbar */
+        .top-navbar {
+            background: white;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #dadce0;
+        }
+
+        .menu-icon { font-size: 20px; cursor: pointer; color: #5f6368; padding: 8px; margin-right: 8px; }
+        .nav-title { font-size: 18px; font-weight: 500; color: #5f6368; flex-grow: 1; }
+
+        /* Banner Style */
+        .banner-container { width: 100%; background: white; padding: 10px 16px; }
+        .header-banner {
+            width: 100%; height: auto; aspect-ratio: 1080/250;
+            background: url('https://i.postimg.cc/XJ9PGwq7/1080x250yapp.png') no-repeat center;
+            background-size: cover; border-radius: 4px;
+        }
+
+        /* Side Menu */
+        .side-menu {
+            position: fixed;
+            top: 0; left: -280px; width: 280px; height: 100%;
+            background: white; z-index: 2000; transition: 0.3s;
+            display: flex; flex-direction: column;
+        }
+        .side-menu.active { left: 0; }
+        .menu-header { padding: 20px; border-bottom: 1px solid #eee; }
+        .menu-header img { width: 45px; border-radius: 8px; margin-bottom: 8px; }
+        .menu-header h2 { font-size: 16px; color: #01875f; }
+
+        .menu-item {
+            padding: 14px 20px; display: flex; align-items: center; gap: 20px;
+            text-decoration: none; color: #3c4043; font-size: 14px; cursor: pointer;
+        }
+        .menu-item i { width: 20px; font-size: 18px; color: #5f6368; text-align: center; }
+        .menu-item:hover { background: #f1f3f4; }
+
+        .menu-divider { height: 1px; background: #eee; margin: 8px 0; }
+        .menu-label { padding: 10px 20px; font-size: 11px; color: #5f6368; font-weight: bold; text-transform: uppercase; }
+
+        .menu-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); display: none; z-index: 1500;
+        }
+
+        /* App Cards */
+        .container { max-width: 480px; margin: 0 auto; padding: 16px; }
+        .app-card {
+            background: white; border-radius: 12px; padding: 20px;
+            margin-bottom: 16px; text-align: center;
+            box-shadow: 0 1px 3px rgba(60,64,67,0.3);
+        }
+        .app-icon { width: 72px; height: 72px; border-radius: 16px; object-fit: cover; margin-bottom: 12px; }
+        .app-title { font-size: 18px; font-weight: 500; margin-bottom: 4px; }
+        .app-desc { font-size: 13px; color: #5f6368; margin-bottom: 16px; }
+
+        .install-btn {
+            background: #01875f; color: white; border: none; padding: 10px;
+            border-radius: 8px; font-weight: 500; width: 100%; cursor: pointer;
+        }
+
+        #adOverlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.98); z-index: 3000; text-align: center; padding-top: 150px;
+        }
+        .loader { border: 3px solid #f3f3f3; border-top: 3px solid #01875f; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 20px auto; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body onload="changeLanguage('en')">
+
+    <div class="top-navbar">
+        <div class="menu-icon" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+        <div class="nav-title" id="top-title">Y Apps - APK Store</div>
+    </div>
+
+    <div class="banner-container">
+        <div class="header-banner"></div>
+    </div>
+
+    <div class="menu-overlay" id="overlay" onclick="toggleMenu()"></div>
+
+    <div class="side-menu" id="sideMenu">
+        <div class="menu-header">
+            <img src="https://i.postimg.cc/mrKY1fwZ/1024x1024.png">
+            <h2>Y Apps Store</h2>
+        </div>
+        
+        <div class="menu-content" style="overflow-y: auto;">
+            <a href="#" class="menu-item" onclick="toggleMenu()">
+                <i class="fas fa-home"></i> <span id="nav-home">Home</span>
+            </a>
+
+            <a href="https://youtu.be/1rMyLT-PezI" class="menu-item" target="_blank">
+                <i class="fab fa-youtube" style="color: #FF0000;"></i> <span id="nav-guide">User Guide</span>
+            </a>
+            <a href="https://youtu.be/1rMyLT-PezI" class="menu-item" target="_blank">
+                <i class="fas fa-video" style="color: #FF0000;"></i> <span id="nav-dl-guide">How to Download</span>
+            </a>
+            
+            <a href="mailto:dailywage172@gmail.com?subject=Feedback" class="menu-item">
+                <i class="fas fa-comment-dots" style="color: #1a73e8;"></i> <span id="nav-feedback">Feedback</span>
+            </a>
+
+            <div class="menu-divider"></div>
+            <div class="menu-label">Contact Us</div>
+
+            <a href="https://www.facebook.com/share/188LV6euv1/" class="menu-item" target="_blank">
+                <i class="fab fa-facebook" style="color: #1877F2;"></i> <span>Facebook Page</span>
+            </a>
+            <a href="tel:+660618201594" class="menu-item">
+                <i class="fas fa-phone-alt" style="color: #34A853;"></i> <span>+66 061 820 1594</span>
+            </a>
+
+            <div class="menu-divider"></div>
+            <div class="menu-label">Settings</div>
+            
+            <div style="padding: 10px 20px;">
+                <select id="lang-select" style="width:100%; padding:8px; border-radius:4px; border:1px solid #dadce0;" onchange="changeLanguage(this.value)">
+                    <option value="en">🇺🇸 English</option>
+                    <option value="my">🇲🇲 မြန်မာ</option>
+                    <option value="th">🇹🇭 ไทย</option>
+                </select>
+            </div>
+        </div>
+        <div style="padding: 15px; font-size: 10px; color: #999; text-align: center;">Version 1.0.5 (2026)</div>
+    </div>
+
+    <div id="adOverlay">
+        <h3 id="ad-header">Preparing Download...</h3>
+        <p>Please wait <span id="timer">5</span>s</p>
+        <div class="loader"></div>
+    </div>
+
+    <div class="container">
+        <div class="app-card">
+            <img src="https://i.postimg.cc/mrKY1fwZ/1024x1024.png" class="app-icon">
+            <div class="app-title title-app1">Daily Wage App</div>
+            <div class="app-desc desc-app1">Track your daily income and expenses.</div>
+            <button class="install-btn dl-text" onclick="startDownload('https://apkpure.com/daily-wage/com.daily.wage/download')">Install</button>
+        </div>
+
+        <div class="app-card">
+            <img src="https://i.postimg.cc/1z6HBp6M/file-000000007f74720bbf2c5fb63e13f835.png" class="app-icon">
+            <div class="app-title title-app2">New App</div>
+            <div class="app-desc desc-app2">Coming soon for more features.</div>
+            <button class="install-btn dl-text" onclick="startDownload('#')">Install</button>
+        </div>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('sideMenu');
+            const overlay = document.getElementById('overlay');
+            menu.classList.toggle('active');
+            overlay.style.display = menu.classList.contains('active') ? 'block' : 'none';
+        }
+
+        function startDownload(url) {
+            if(url === '#') { alert("Coming Soon!"); return; }
+            var s = document.createElement('script');
+            s.src = "https://pl28343252.effectivegatecpm.com/b0/32/35/b0323521ab92aa35ff4ce77822b78adc.js";
+            document.body.appendChild(s);
+            const overlay = document.getElementById('adOverlay');
+            const timer = document.getElementById('timer');
+            let count = 5;
+            overlay.style.display = 'block';
+            const interval = setInterval(() => {
+                count--; timer.innerText = count;
+                if(count <= 0) { clearInterval(interval); overlay.style.display = 'none'; window.location.href = url; }
+            }, 1000);
+        }
+
+        function changeLanguage(lang) {
+            const data = {
+                en: { top: "Y Apps - APK Store", home: "Home", guide: "User Guide", dl: "How to Download", feed: "Feedback", ad: "Preparing Download...", t1: "Daily Wage App", d1: "Track your daily income.", t2: "New App", d2: "Coming soon.", btn: "Install" },
+                my: { top: "Y Apps - APK စတိုး", home: "ပင်မ", guide: "အသုံးပြုနည်း", dl: "ဒေါင်းလုဒ်လုပ်နည်း", feed: "အကြံပြုရန်", ad: "ဒေါင်းလုဒ်လုပ်ရန် ပြင်ဆင်နေသည်...", t1: "Daily Wage App", d1: "နေ့စဉ်ဝင်ငွေထွက်ငွေ တွက်ချက်ရန်။", t2: "အက်ပ်အသစ်", d2: "မကြာမီလာမည်။", btn: "Install" },
+                th: { top: "Y Apps - เอพีเคสโตร์", home: "หน้าแรก", guide: "วิธีใช้", dl: "วิธีดาวน์โหลด", feed: "ข้อเสนอแนะ", ad: "กำลังเตรียมดาวน์โหลด...", t1: "รายวัน", d1: "จัดการรายได้ประจำวัน", t2: "แอปใหม่", d2: "เร็วๆ นี้", btn: "ติดตั้ง" }
+            };
+            const l = data[lang];
+            document.getElementById('top-title').innerText = l.top;
+            document.getElementById('nav-home').innerText = l.home;
+            document.getElementById('nav-guide').innerText = l.guide;
+            document.getElementById('nav-dl-guide').innerText = l.dl;
+            document.getElementById('nav-feedback').innerText = l.feed;
+            document.getElementById('ad-header').innerText = l.ad;
+            document.querySelector('.title-app1').innerText = l.t1;
+            document.querySelector('.desc-app1').innerText = l.d1;
+            document.querySelector('.title-app2').innerText = l.t2;
+            document.querySelector('.desc-app2').innerText = l.d2;
+            document.querySelectorAll('.dl-text').forEach(btn => btn.innerText = l.btn);
+            if(document.getElementById('sideMenu').classList.contains('active')) toggleMenu();
+        }
+    </script>
+</body>
+  </html>
