@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Y Apps - APK Store</title>
+    <title>Y Apps - APK Store (Valentine Edition)</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <script type='text/javascript' src='https://pl28344759.effectivegatecpm.com/eb/25/40/eb25401554277dcd898bb0414f0023b0.js'></script>
-
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f1f3f4; color: #333; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            background: #fff0f5; 
+            color: #b03060; 
+        }
 
         /* Top Navbar */
         .top-navbar {
-            background: white;
+            background: #ff69b4;
             height: 56px;
             display: flex;
             align-items: center;
@@ -22,69 +24,76 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid #dadce0;
+            border-bottom: 2px solid #ffb6c1;
         }
 
-        .menu-icon { font-size: 20px; cursor: pointer; color: #5f6368; padding: 8px; margin-right: 8px; }
-        .nav-title { font-size: 18px; font-weight: 500; color: #5f6368; flex-grow: 1; }
+        .menu-icon { font-size: 20px; cursor: pointer; color: white !important; padding: 8px; margin-right: 8px; }
+        .nav-title { font-size: 18px; font-weight: 500; color: white !important; flex-grow: 1; }
 
         /* Banner Style */
-        .banner-container { width: 100%; background: white; padding: 10px 16px; }
+        .banner-container { width: 100%; background: #fff0f5; padding: 10px 16px; }
         .header-banner {
             width: 100%; height: auto; aspect-ratio: 1080/250;
             background: url('https://i.postimg.cc/fLkLcrvt/1771032333782.png') no-repeat center;
-            background-size: cover; border-radius: 4px;
+            background-size:cover; border-radius: 12px;
+            border: 2px solid #ffb6c1;
         }
 
         /* Side Menu */
         .side-menu {
             position: fixed;
             top: 0; left: -280px; width: 280px; height: 100%;
-            background: white; z-index: 2000; transition: 0.3s;
+            background: #fffafa; z-index: 2000; transition: 0.3s;
             display: flex; flex-direction: column;
+            border-right: 2px solid #ffb6c1;
         }
         .side-menu.active { left: 0; }
-        .menu-header { padding: 20px; border-bottom: 1px solid #eee; }
+        .menu-header { padding: 20px; border-bottom: 1px solid #ffdae0; }
         .menu-header img { width: 45px; border-radius: 8px; margin-bottom: 8px; }
-        .menu-header h2 { font-size: 16px; color: #01875f; }
+        .menu-header h2 { font-size: 16px; color: #ff1493; }
 
         .menu-item {
             padding: 14px 20px; display: flex; align-items: center; gap: 20px;
-            text-decoration: none; color: #3c4043; font-size: 14px; cursor: pointer;
+            text-decoration: none; color: #db7093; font-size: 14px; cursor: pointer;
         }
-        .menu-item i { width: 20px; font-size: 18px; color: #5f6368; text-align: center; }
-        .menu-item:hover { background: #f1f3f4; }
+        .menu-item i { width: 20px; font-size: 18px; color: #ff69b4; text-align: center; }
+        .menu-item:hover { background: #ffe4e1; }
 
-        .menu-divider { height: 1px; background: #eee; margin: 8px 0; }
-        .menu-label { padding: 10px 20px; font-size: 11px; color: #5f6368; font-weight: bold; text-transform: uppercase; }
+        .menu-divider { height: 1px; background: #ffdae0; margin: 8px 0; }
+        .menu-label { padding: 10px 20px; font-size: 11px; color: #db7093; font-weight: bold; text-transform: uppercase; }
 
         .menu-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); display: none; z-index: 1500;
+            background: rgba(219, 112, 147, 0.4); display: none; z-index: 1500;
         }
 
         /* App Cards */
         .container { max-width: 480px; margin: 0 auto; padding: 16px; }
         .app-card {
-            background: white; border-radius: 12px; padding: 20px;
+            background: white; border-radius: 16px; padding: 20px;
             margin-bottom: 16px; text-align: center;
-            box-shadow: 0 1px 3px rgba(60,64,67,0.3);
+            box-shadow: 0 4px 15px rgba(255, 105, 180, 0.15);
+            border: 1px solid #ffdae0;
         }
-        .app-icon { width: 72px; height: 72px; border-radius: 16px; object-fit: cover; margin-bottom: 12px; }
-        .app-title { font-size: 18px; font-weight: 500; margin-bottom: 4px; }
-        .app-desc { font-size: 13px; color: #5f6368; margin-bottom: 16px; }
+        .app-icon { width: 72px; height: 72px; border-radius: 18px; object-fit: cover; margin-bottom: 12px; border: 2px solid #fff0f5; }
+        .app-title { font-size: 18px; font-weight: 600; color: #ff1493; margin-bottom: 4px; }
+        .app-desc { font-size: 13px; color: #db7093; margin-bottom: 16px; }
 
         .install-btn {
-            background: #01875f; color: white; border: none; padding: 10px;
-            border-radius: 8px; font-weight: 500; width: 100%; cursor: pointer;
+            background: #ff69b4; color: white; border: none; padding: 12px;
+            border-radius: 10px; font-weight: 600; width: 100%; cursor: pointer;
+            box-shadow: 0 2px 5px rgba(255, 105, 180, 0.3);
+            transition: 0.3s;
         }
+        .install-btn:active { transform: scale(0.98); background: #ff1493; }
 
+        /* Timer Overlay */
         #adOverlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255,255,255,0.98); z-index: 3000; text-align: center; padding-top: 150px;
+            background: rgba(255, 240, 245, 0.98); z-index: 3000; text-align: center; padding-top: 150px;
         }
-        .loader { border: 3px solid #f3f3f3; border-top: 3px solid #01875f; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 20px auto; }
+        .loader { border: 4px solid #fff0f5; border-top: 4px solid #ff69b4; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 20px auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
@@ -137,19 +146,19 @@
             <div class="menu-label">Settings</div>
             
             <div style="padding: 10px 20px;">
-                <select id="lang-select" style="width:100%; padding:8px; border-radius:4px; border:1px solid #dadce0;" onchange="changeLanguage(this.value)">
+                <select id="lang-select" style="width:100%; padding:8px; border-radius:4px; border:1px solid #ffdae0; color: #db7093;" onchange="changeLanguage(this.value)">
                     <option value="en">🇺🇸 English</option>
                     <option value="my">🇲🇲 မြန်မာ</option>
                     <option value="th">🇹🇭 ไทย</option>
                 </select>
             </div>
         </div>
-        <div style="padding: 15px; font-size: 10px; color: #999; text-align: center;">Version 1.0.9(2026)</div>
+        <div style="padding: 15px; font-size: 10px; color: #db7093; text-align: center;">Version 1.0.5 (2026)</div>
     </div>
 
     <div id="adOverlay">
-        <h3 id="ad-header">Preparing Download...</h3>
-        <p>Please wait <span id="timer">5</span>s</p>
+        <h3 id="ad-header" style="color: #ff1493;">Preparing Download...</h3>
+        <p style="color: #db7093;">Please wait <span id="timer">3</span>s</p>
         <div class="loader"></div>
     </div>
 
@@ -177,18 +186,25 @@
             overlay.style.display = menu.classList.contains('active') ? 'block' : 'none';
         }
 
+        /* ကြော်ငြာ Tab အသစ်မပွင့်ဘဲ ၃ စက္ကန့်ပဲ စောင့်စေမည့် Function */
         function startDownload(url) {
             if(url === '#') { alert("Coming Soon!"); return; }
-            var s = document.createElement('script');
-            s.src = "https://pl28343252.effectivegatecpm.com/b0/32/35/b0323521ab92aa35ff4ce77822b78adc.js";
-            document.body.appendChild(s);
+            
             const overlay = document.getElementById('adOverlay');
             const timer = document.getElementById('timer');
-            let count = 5;
+            let count = 3; // စက္ကန့်ကို ၃ သို့ လျှော့ချထားသည်
+            
             overlay.style.display = 'block';
+            timer.innerText = count;
+
             const interval = setInterval(() => {
-                count--; timer.innerText = count;
-                if(count <= 0) { clearInterval(interval); overlay.style.display = 'none'; window.location.href = url; }
+                count--;
+                timer.innerText = count;
+                if(count <= 0) {
+                    clearInterval(interval);
+                    overlay.style.display = 'none';
+                    window.location.href = url; // ၃ စက္ကန့်ပြည့်လျှောက် လင့်ခ်သို့ တိုက်ရိုက်သွားမည်
+                }
             }, 1000);
         }
 
@@ -214,4 +230,4 @@
         }
     </script>
 </body>
-  </html>
+</html>
