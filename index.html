@@ -3,109 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Y Apps - APK Store</title>
+    <title>Y Apps Store</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
+    <script type='text/javascript' src='https://pl28344759.effectivegatecpm.com/eb/25/40/eb25401554277dcd898bb0414f0023b0.js'></script>
+
     <style>
-        /* နမူနာပုံစံအတိုင်း Gradient အရောင်များ သုံးထားပါသည် */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: 'Segoe UI', Tahoma, sans-serif; 
             background: linear-gradient(180deg, #ff7e5f, #feb47b, #86a8e7, #91eae4); 
             background-attachment: fixed;
-            color: #333; 
             padding-bottom: 70px; 
         }
 
-        /* Top Navbar - Orange/Red Gradient */
-        .top-navbar {
-            background: linear-gradient(90deg, #f12711, #f5af19);
-            height: 56px;
-            display: flex;
-            align-items: center;
-            padding: 0 16px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-        .menu-icon { font-size: 20px; cursor: pointer; color: white; padding: 8px; margin-right: 8px; }
-        .nav-title { font-size: 18px; font-weight: 500; color: white; flex-grow: 1; }
-
-        /* Banner Style */
-        .banner-container { width: 100%; padding: 10px 16px; }
+        /* Header Section */
+        .header-container { width: 100%; position: relative; background: #fff; }
         .header-banner {
-            width: 100%; height: auto; aspect-ratio: 1080/250;
-            background: url('https://i.postimg.cc/5NrPGbpS/1771286090163.png') no-repeat center;
-            background-size:cover; border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%; height: auto; aspect-ratio: 1080/280;
+            background: url('https://i.postimg.cc/fLkLcrvt/1771032333782.png') no-repeat center;
+            background-size: cover; display: block;
         }
 
-        /* Side Menu (မူလအတိုင်း) */
-        .side-menu {
-            position: fixed; top: 0; left: -280px; width: 280px; height: 100%;
-            background: white; z-index: 2005; transition: 0.3s;
-            display: flex; flex-direction: column;
-        }
-        .side-menu.active { left: 0; }
-        .menu-header { padding: 20px; border-bottom: 1px solid #eee; }
-        .menu-header img { width: 50px; border-radius: 12px; margin-bottom: 8px; }
-        .menu-header h2 { font-size: 16px; color: #202124; }
-
-        .menu-item {
-            padding: 14px 20px; display: flex; align-items: center; gap: 20px;
-            text-decoration: none; color: #3c4043; font-size: 14px;
-        }
-        .menu-item i { width: 20px; font-size: 18px; color: #5f6368; text-align: center; }
-        .menu-divider { height: 1px; background: #eee; margin: 8px 0; }
-        .menu-label { padding: 10px 20px; font-size: 11px; color: #70757a; font-weight: bold; text-transform: uppercase; }
-
-        .menu-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); display: none; z-index: 1500;
+        /* Menu Button - ညာဘက်အပေါ်ထောင့် */
+        .menu-trigger {
+            position: absolute; top: 12px; right: 15px;
+            background: rgba(0, 0, 0, 0.4); color: white;
+            width: 42px; height: 42px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; z-index: 1001; font-size: 20px; backdrop-filter: blur(5px);
         }
 
-        /* App Cards - နမူနာပုံစံအတိုင်း Pink/Purple Gradient */
-        .container { max-width: 480px; margin: 0 auto; padding: 16px; }
+        /* Search Bar & Tabs */
+        .search-section { padding: 15px 16px 5px; position: relative; }
+        .search-box {
+            width: 100%; padding: 12px 15px 12px 45px; border-radius: 12px;
+            border: none; background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 14px;
+        }
+        .search-icon {
+            position: absolute; left: 30px; top: 28px;
+            color: #d81b60; font-size: 16px;
+        }
+
+        .tabs-container { display: flex; gap: 10px; padding: 10px 16px; overflow-x: auto; scrollbar-width: none; }
+        .tab-btn {
+            padding: 8px 22px; border-radius: 20px; border: none;
+            background: rgba(255, 255, 255, 0.2); color: white;
+            font-weight: 600; cursor: pointer; transition: 0.3s;
+        }
+        .tab-btn.active { background: white; color: #d81b60; }
+
+        /* App Cards Design */
+        .container { max-width: 480px; margin: 0 auto; padding: 0 16px 16px; }
         .app-card {
             background: linear-gradient(135deg, #e52d27, #b31217, #702082);
-            border-radius: 20px; padding: 25px 20px;
-            margin-bottom: 20px; text-align: center;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            color: white;
+            border-radius: 22px; padding: 22px; margin-bottom: 25px;
+            text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.25); color: white;
         }
-        .app-icon { width: 80px; height: 80px; border-radius: 20px; object-fit: cover; margin-bottom: 15px; border: 2px solid rgba(255,255,255,0.3); }
-        .app-title { font-size: 18px; font-weight: 600; margin-bottom: 5px; color: white; }
-        .app-desc { font-size: 13px; color: rgba(255,255,255,0.8); margin-bottom: 20px; }
+        .app-icon { width: 80px; height: 80px; border-radius: 20px; object-fit: cover; border: 2.5px solid rgba(255,255,255,0.3); margin-bottom: 10px; }
+        
+        .screenshot-slider { display: flex; gap: 10px; overflow-x: auto; margin: 15px 0; padding-bottom: 5px; }
+        .screenshot-slider img { width: 110px; height: 190px; border-radius: 12px; object-fit: cover; border: 1px solid rgba(255,255,255,0.2); }
 
-        /* Install Button - Purple Gradient */
         .install-btn {
             background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
-            color: white; border: none; padding: 12px;
-            border-radius: 12px; font-weight: 600; width: 100%; cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            color: white; border: none; padding: 14px; border-radius: 14px; width: 100%; font-weight: 700; cursor: pointer;
         }
 
-        /* Footer Banner Ad Container */
+        /* Side Menu (Right Side) */
+        .side-menu {
+            position: fixed; top: 0; right: -285px; width: 280px; height: 100%;
+            background: white; z-index: 2005; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex; flex-direction: column;
+        }
+        .side-menu.active { right: 0; }
+        .menu-header { padding: 30px 20px; border-bottom: 1px solid #f0f0f0; text-align: center; }
+        .menu-header img { width: 65px; border-radius: 18px; margin-bottom: 10px; }
+        .menu-item { padding: 15px 25px; display: flex; align-items: center; gap: 15px; text-decoration: none; color: #333; font-size: 15px; }
+        .menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; z-index: 1500; }
+
         .footer-ad-container {
-            position: fixed; bottom: 0; left: 0; width: 100%;
-            background: white; border-top: 1px solid #ddd;
-            display: flex; justify-content: center; align-items: center;
-            z-index: 2000; padding: 5px 0; min-height: 50px;
+            position: fixed; bottom: 0; left: 0; width: 100%; background: white;
+            display: flex; justify-content: center; align-items: center; z-index: 2000; padding: 5px 0; border-top: 1px solid #eee;
         }
     </style>
 </head>
 <body onload="changeLanguage('en')">
 
-    <script type='text/javascript' src='https://pl28344759.effectivegatecpm.com/eb/25/40/eb25401554277dcd898bb0414f0023b0.js'></script>
-
-    <div class="top-navbar">
-        <div class="menu-icon" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
-        <div class="nav-title" id="top-title">Y Apps - APK Store</div>
+    <div class="header-container">
+        <div class="menu-trigger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+        <div class="header-banner"></div>
     </div>
 
-    <div class="banner-container">
-        <div class="header-banner"></div>
+    <div class="search-section">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" class="search-box" id="searchInput" placeholder="Search apps..." onkeyup="searchApps()">
+    </div>
+
+    <div class="tabs-container">
+        <button class="tab-btn active" id="tab-all" onclick="filterCat('all')">All</button>
+        <button class="tab-btn" id="tab-tools" onclick="filterCat('tools')">Tools</button>
+        <button class="tab-btn" id="tab-games" onclick="filterCat('games')">Games</button>
     </div>
 
     <div class="menu-overlay" id="overlay" onclick="toggleMenu()"></div>
@@ -113,70 +112,55 @@
     <div class="side-menu" id="sideMenu">
         <div class="menu-header">
             <img src="https://i.postimg.cc/mrKY1fwZ/1024x1024.png">
-            <h2>Y Apps Store</h2>
+            <h2 style="font-size: 18px; color: #333;">Y Apps Store</h2>
         </div>
-        
         <div class="menu-content" style="overflow-y: auto;">
-            <a href="#" class="menu-item" onclick="toggleMenu()">
-                <i class="fas fa-home"></i> <span id="nav-home">Home</span>
-            </a>
-            <a href="https://youtu.be/1rMyLT-PezI" class="menu-item" target="_blank">
-                <i class="fab fa-youtube" style="color: #FF0000;"></i> <span id="nav-guide">User Guide</span>
-            </a>
-            <a href="https://youtu.be/1rMyLT-PezI" class="menu-item" target="_blank">
-                <i class="fas fa-video" style="color: #FF0000;"></i> <span id="nav-dl-guide">How to Download</span>
-            </a>
-            <a href="mailto:dailywage172@gmail.com?subject=Feedback" class="menu-item">
-                <i class="fas fa-comment-dots" style="color: #1a73e8;"></i> <span id="nav-feedback">Feedback</span>
-            </a>
-
-            <div class="menu-divider"></div>
-            <div class="menu-label">Contact Us</div>
-            <a href="https://www.facebook.com/share/188LV6euv1/" class="menu-item" target="_blank">
-                <i class="fab fa-facebook" style="color: #1877F2;"></i> <span>Facebook Page</span>
-            </a>
-            <a href="tel:+660618201594" class="menu-item">
-                <i class="fas fa-phone-alt" style="color: #34A853;"></i> <span>+66 061 820 1594</span>
-            </a>
-
-            <div class="menu-divider"></div>
-            <div class="menu-label">Settings</div>
-            <div style="padding: 10px 20px;">
-                <select id="lang-select" style="width:100%; padding:8px; border-radius:4px; border:1px solid #dadce0;" onchange="changeLanguage(this.value)">
+            <a href="#" class="menu-item" onclick="toggleMenu()"><i class="fas fa-home" style="color:#d81b60"></i> <span id="nav-home">Home</span></a>
+            <a href="https://youtu.be/1rMyLT-PezI" class="menu-item" target="_blank"><i class="fab fa-youtube" style="color:#FF0000;"></i> <span id="nav-guide">User Guide</span></a>
+            <a href="mailto:dailywage172@gmail.com" class="menu-item"><i class="fas fa-envelope" style="color:#1a73e8;"></i> <span id="nav-feedback">Feedback</span></a>
+            <div style="height: 1px; background: #eee; margin: 10px 25px;"></div>
+            <a href="https://www.facebook.com/share/188LV6euv1/" class="menu-item" target="_blank"><i class="fab fa-facebook" style="color:#1877F2;"></i> <span>Facebook Page</span></a>
+            <a href="tel:+660618201594" class="menu-item"><i class="fas fa-phone" style="color:#34A853;"></i> <span>Contact</span></a>
+            
+            <div style="padding: 25px;">
+                <label style="font-size: 12px; color: #888; margin-bottom: 5px; display: block;">LANGUAGE</label>
+                <select id="lang-select" style="width:100%; padding:12px; border-radius:8px; border: 1px solid #ddd; outline: none;" onchange="changeLanguage(this.value)">
                     <option value="en">🇺🇸 English</option>
                     <option value="my">🇲🇲 မြန်မာ</option>
                     <option value="th">🇹🇭 ไทย</option>
                 </select>
             </div>
         </div>
-        <div style="padding: 15px; font-size: 10px; color: #999; text-align: center;">Version 1.0.8 (2026)</div>
     </div>
 
-    <div class="container">
-        <div class="app-card">
+    <div class="container" id="appContainer">
+        <div class="app-card" data-category="tools">
             <img src="https://i.postimg.cc/mrKY1fwZ/1024x1024.png" class="app-icon">
-            <div class="app-title title-app1">Daily Wage App</div>
-            <div class="app-desc desc-app1">Track your daily income and expenses.</div>
+            <div class="app-title title-app1" style="font-size: 20px; font-weight: 700;">Daily Wage App</div>
+            <div class="app-desc desc-app1" style="font-size: 13px; color: rgba(255,255,255,0.85); margin-bottom: 10px;">Track your daily income.</div>
+            
+            <div class="screenshot-slider">
+                <img src="https://i.postimg.cc/sM3B6CKy/Screenshot-2026-02-07-18-20-05-149-com-daily-wage.jpg">
+                <img src="https://i.postimg.cc/Hr3rFvvh/Screenshot-2026-02-09-23-14-10-890-com-daily-wage.jpg">
+                <img src="https://i.postimg.cc/k27V1PwC/Screenshot-2026-02-09-23-14-22-424-com-daily-wage.jpg">
+                <img src="https://i.postimg.cc/18ygC1MZ/Screenshot-2026-02-10-22-56-00-329-com-daily-wage.jpg">
+                <img src="https://i.postimg.cc/LJ7JHgR0/1770655441623.png">
+            </div>
+            
             <button class="install-btn dl-text" onclick="window.location.href='https://apkpure.com/daily-wage/com.daily.wage/download'">Install</button>
         </div>
 
-        <div class="app-card">
+        <div class="app-card" data-category="games">
             <img src="https://i.postimg.cc/1z6HBp6M/file-000000007f74720bbf2c5fb63e13f835.png" class="app-icon">
-            <div class="app-title title-app2">New App</div>
-            <div class="app-desc desc-app2">Coming soon for more features.</div>
-            <button class="install-btn dl-text" onclick="alert('Coming Soon!')">Install</button>
+            <div class="app-title title-app2" style="font-size: 20px; font-weight: 700;">New App</div>
+            <div class="app-desc desc-app2" style="font-size: 13px; color: rgba(255,255,255,0.85);">Coming soon for more features.</div>
+            <button class="install-btn dl-text" style="margin-top:20px;" onclick="alert('Coming Soon!')">Install</button>
         </div>
     </div>
 
     <div class="footer-ad-container">
         <script type="text/javascript">
-            atOptions = {
-                'key' : '1f368fdf67bf1944d873877b1354fd14',
-                'format' : 'iframe',
-                'height' : 50,
-                'width' : 320,
-                'params' : {}
-            };
+            atOptions = { 'key' : '1f368fdf67bf1944d873877b1354fd14', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
         </script>
         <script type="text/javascript" src="https://www.highperformanceformat.com/1f368fdf67bf1944d873877b1354fd14/invoke.js"></script>
     </div>
@@ -189,23 +173,46 @@
             overlay.style.display = menu.classList.contains('active') ? 'block' : 'none';
         }
 
+        function searchApps() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.getElementsByClassName('app-card');
+            for (let card of cards) {
+                let title = card.querySelector('.app-title').innerText.toLowerCase();
+                card.style.display = title.includes(input) ? "block" : "none";
+            }
+        }
+
+        function filterCat(cat) {
+            let cards = document.getElementsByClassName('app-card');
+            let btns = document.getElementsByClassName('tab-btn');
+            for(let btn of btns) btn.classList.remove('active');
+            document.getElementById('tab-' + cat).classList.add('active');
+            for (let card of cards) {
+                if (cat === 'all') card.style.display = "block";
+                else card.style.display = (card.getAttribute('data-category') === cat) ? "block" : "none";
+            }
+        }
+
         function changeLanguage(lang) {
             const data = {
-                en: { top: "Y Apps Store", home: "Home", guide: "User Guide", dl: "How to Download", feed: "Feedback", t1: "Daily Wage App", d1: "Track your income.", t2: "New App", d2: "Coming soon.", btn: "Install" },
-                my: { top: "Y Apps - APK စတိုး", home: "ပင်မ", guide: "အသုံးပြုနည်း", dl: "ဒေါင်းလုဒ်လုပ်နည်း", feed: "အကြံပြုရန်", t1: "Daily Wage App", d1: "နေ့စဉ်ဝင်ငွေထွက်ငွေ တွက်ချက်ရန်။", t2: "အက်ပ်အသစ်", d2: "မကြာမီလာမည်။", btn: "Install" },
-                th: { top: "Y Apps - เอพีเคสโตร์", home: "หน้าแรก", guide: "วิธีใช้", dl: "วิธีดาวน์โหลด", feed: "ข้อเสนอแนะ", t1: "รายวัน", d1: "จัดการรายได้ประจำวัน", t2: "แอปใหม่", d2: "เร็วๆ นี้", btn: "ติดตั้ง" }
+                en: { home: "Home", guide: "User Guide", feed: "Feedback", search: "Search apps...", all: "All", tools: "Tools", games: "Games", t1: "Daily Wage App", d1: "Track your daily income.", t2: "New App", d2: "Coming soon.", btn: "Install" },
+                my: { home: "ပင်မ", guide: "အသုံးပြုနည်း", feed: "အကြံပြုရန်", search: "ရှာဖွေရန်...", all: "အားလုံး", tools: "ကိရိယာ", games: "ဂိမ်းများ", t1: "Daily Wage App", d1: "နေ့စဉ်ဝင်ငွေထွက်ငွေတွက်ရန်", t2: "အက်ပ်အသစ်", d2: "မကြာမီလာမည်။", btn: "Install" },
+                th: { home: "หน้าแรก", guide: "วิธีใช้", feed: "ข้อเสนอแนะ", search: "ค้นหาแอป...", all: "ทั้งหมด", tools: "เครื่องมือ", games: "เกม", t1: "แอปบันทึกรายวัน", d1: "จัดการรายได้ประจำวัน", t2: "แอปใหม่", d2: "เร็วๆ นี้", btn: "ติดตั้ง" }
             };
             const l = data[lang];
-            document.getElementById('top-title').innerText = l.top;
             document.getElementById('nav-home').innerText = l.home;
             document.getElementById('nav-guide').innerText = l.guide;
-            document.getElementById('nav-dl-guide').innerText = l.dl;
             document.getElementById('nav-feedback').innerText = l.feed;
+            document.getElementById('searchInput').placeholder = l.search;
+            document.getElementById('tab-all').innerText = l.all;
+            document.getElementById('tab-tools').innerText = l.tools;
+            document.getElementById('tab-games').innerText = l.games;
             document.querySelector('.title-app1').innerText = l.t1;
             document.querySelector('.desc-app1').innerText = l.d1;
             document.querySelector('.title-app2').innerText = l.t2;
             document.querySelector('.desc-app2').innerText = l.d2;
             document.querySelectorAll('.dl-text').forEach(btn => btn.innerText = l.btn);
+            if(document.getElementById('sideMenu').classList.contains('active')) toggleMenu();
         }
     </script>
 </body>
