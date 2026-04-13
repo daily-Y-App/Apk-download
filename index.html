@@ -3,29 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Y Apps Store</title>
+    <title>Y Apps Store - Premium Services</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <script type='text/javascript' src='https://pl28344759.effectivegatecpm.com/eb/25/40/eb25401554277dcd898bb0414f0023b0.js'></script>
 
     <style>
+        /* အခြေခံ Style များ (Original ထိန်းသိမ်းထားသည်) */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: 'Segoe UI', Tahoma, sans-serif; 
             background: linear-gradient(180deg, #ff7e5f, #feb47b, #86a8e7, #91eae4); 
             background-attachment: fixed;
-            padding-bottom: 70px; 
+            padding-bottom: 100px; 
         }
 
         /* Header Section */
         .header-container { width: 100%; position: relative; background: #fff; }
         .header-banner {
             width: 100%; height: auto; aspect-ratio: 1080/280;
-            background: url('https://i.postimg.cc/XY3t9KRc/1771418102066.png') no-repeat center;
+            background: url('https://i.postimg.cc/g0ZWnrMd/17837.png') no-repeat center;
             background-size: cover; display: block;
         }
 
-        /* Menu Button - ညာဘက်အပေါ်ထောင့် */
         .menu-trigger {
             position: absolute; top: 12px; right: 15px;
             background: rgba(0, 0, 0, 0.4); color: white;
@@ -34,27 +34,24 @@
             cursor: pointer; z-index: 1001; font-size: 20px; backdrop-filter: blur(5px);
         }
 
-        /* Search Bar & Tabs */
+        /* Search & Tabs */
         .search-section { padding: 15px 16px 5px; position: relative; }
         .search-box {
             width: 100%; padding: 12px 15px 12px 45px; border-radius: 12px;
             border: none; background: rgba(255, 255, 255, 0.95);
             box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 14px;
         }
-        .search-icon {
-            position: absolute; left: 30px; top: 28px;
-            color: #d81b60; font-size: 16px;
-        }
+        .search-icon { position: absolute; left: 30px; top: 28px; color: #d81b60; font-size: 16px; }
 
         .tabs-container { display: flex; gap: 10px; padding: 10px 16px; overflow-x: auto; scrollbar-width: none; }
         .tab-btn {
             padding: 8px 22px; border-radius: 20px; border: none;
             background: rgba(255, 255, 255, 0.2); color: white;
-            font-weight: 600; cursor: pointer; transition: 0.3s;
+            font-weight: 600; cursor: pointer; transition: 0.3s; white-space: nowrap;
         }
         .tab-btn.active { background: white; color: #d81b60; }
 
-        /* App Cards Design */
+        /* App Cards */
         .container { max-width: 480px; margin: 0 auto; padding: 0 16px 16px; }
         .app-card {
             background: linear-gradient(135deg, #e52d27, #b31217, #702082);
@@ -69,9 +66,52 @@
         .install-btn {
             background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
             color: white; border: none; padding: 14px; border-radius: 14px; width: 100%; font-weight: 700; cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .install-btn:active { transform: scale(0.98); }
+
+        /* --- ထပ်တိုး Section များ --- */
+        .info-section {
+            background: white; border-radius: 20px; padding: 20px; margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .info-title { font-size: 18px; font-weight: 700; color: #333; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+        
+        .btn-link {
+            display: flex; align-items: center; justify-content: space-between;
+            background: #f8f9fa; padding: 15px; border-radius: 12px;
+            text-decoration: none; color: #333; margin-bottom: 10px;
+            border: 1px solid #eee; transition: 0.3s;
+        }
+        .btn-link:hover { background: #eef2f7; }
+        .btn-link i { font-size: 20px; }
+
+        /* Floating Messenger */
+        .messenger-float {
+            position: fixed; bottom: 80px; right: 20px;
+            width: 55px; height: 55px; background: #0084ff;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 28px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 1999; cursor: pointer; text-decoration: none;
         }
 
-        /* Side Menu (Right Side) */
+        /* Modal / Guide Style */
+        .modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); z-index: 3000; padding: 20px; overflow-y: auto;
+        }
+        .modal-content {
+            background: white; border-radius: 20px; padding: 25px; max-width: 400px; margin: 40px auto;
+        }
+        .guide-step { margin-bottom: 15px; padding-left: 10px; border-left: 3px solid #d81b60; }
+
+        /* Social Grid */
+        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .social-item {
+            padding: 12px; border-radius: 10px; text-align: center; color: white; text-decoration: none; font-weight: 600;
+        }
+
+        /* Menu Styles (Original) */
         .side-menu {
             position: fixed; top: 0; right: -285px; width: 280px; height: 100%;
             background: white; z-index: 2005; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -90,6 +130,10 @@
     </style>
 </head>
 <body onload="changeLanguage('en')">
+
+    <a href="https://m.me/1HiGd2hafR" class="messenger-float" target="_blank">
+        <i class="fab fa-facebook-messenger"></i>
+    </a>
 
     <div class="header-container">
         <div class="menu-trigger" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
@@ -119,7 +163,7 @@
             <a href="https://youtu.be/1rMyLT-PezI" class="menu-item" target="_blank"><i class="fab fa-youtube" style="color:#FF0000;"></i> <span id="nav-guide">User Guide</span></a>
             <a href="mailto:dailywage172@gmail.com" class="menu-item"><i class="fas fa-envelope" style="color:#1a73e8;"></i> <span id="nav-feedback">Feedback</span></a>
             <div style="height: 1px; background: #eee; margin: 10px 25px;"></div>
-            <a href="https://www.facebook.com/share/188LV6euv1/" class="menu-item" target="_blank"><i class="fab fa-facebook" style="color:#1877F2;"></i> <span>Facebook Page</span></a>
+            <a href="https://www.facebook.com/share/1HGhQ4hVEf/" class="menu-item" target="_blank"><i class="fab fa-facebook" style="color:#1877F2;"></i> <span>Facebook Page</span></a>
             <a href="tel:+660618201594" class="menu-item"><i class="fas fa-phone" style="color:#34A853;"></i> <span>Contact</span></a>
             
             <div style="padding: 25px;">
@@ -140,21 +184,82 @@
             <div class="app-desc desc-app1" style="font-size: 13px; color: rgba(255,255,255,0.85); margin-bottom: 10px;">Track your daily income.</div>
             
             <div class="screenshot-slider">
-                <img src="https://i.postimg.cc/sM3B6CKy/Screenshot-2026-02-07-18-20-05-149-com-daily-wage.jpg">
-                <img src="https://i.postimg.cc/Hr3rFvvh/Screenshot-2026-02-09-23-14-10-890-com-daily-wage.jpg">
-                <img src="https://i.postimg.cc/k27V1PwC/Screenshot-2026-02-09-23-14-22-424-com-daily-wage.jpg">
-                <img src="https://i.postimg.cc/18ygC1MZ/Screenshot-2026-02-10-22-56-00-329-com-daily-wage.jpg">
-                <img src="https://i.postimg.cc/LJ7JHgR0/1770655441623.png">
+                <img src="https://i.postimg.cc/FKWT5xbJ/Screenshot_2026_04_13_12_35_05_104_com_daily_wage.jpg">
+                <img src="https://i.postimg.cc/Hr3rFvvh/Screenshot-2026-02-09-23-14-10-890-com_daily_wage.jpg">
+                <img src="https://i.postimg.cc/YSndKxNj/Screenshot_2026_04_13_12_35_22_953_com_daily_wage.jpg">
+                <img src="https://i.postimg.cc/d1h4qTn2/Screenshot_2026_04_13_12_36_09_428_com_daily_wage.jpg">
+                <img src="https://i.postimg.cc/qRNjkCQR/Screenshot_2026_04_13_12_36_03_495_com_daily_wage.jpg">
             </div>
             
-            <button class="install-btn dl-text" onclick="window.location.href='https://apkpure.com/daily-wage/com.daily.wage/download'">Install</button>
+            <button class="install-btn dl-text" onclick="window.location.href='https://apkpure.com/daily-wage/com.daily.wage'">Install Now</button>
         </div>
 
-        <div class="app-card" data-category="games">
-            <img src="https://i.postimg.cc/1z6HBp6M/file-000000007f74720bbf2c5fb63e13f835.png" class="app-icon">
-            <div class="app-title title-app2" style="font-size: 20px; font-weight: 700;">New App</div>
-            <div class="app-desc desc-app2" style="font-size: 13px; color: rgba(255,255,255,0.85);">Coming soon for more features.</div>
-            <button class="install-btn dl-text" style="margin-top:20px;" onclick="alert('Coming Soon!')">Install</button>
+        <div class="info-section">
+            <div class="info-title"><i class="fas fa-info-circle" style="color: #d81b60;"></i> About App</div>
+            <button class="install-btn" style="background: #333; margin-bottom: 10px;" onclick="openModal('aboutModal')">DailyWage Apk ဆိုတာဘာလဲ</button>
+            <button class="install-btn" style="background: #512da8;" onclick="openModal('guideModal')">အသုံးပြုနည်းလမ်းညွှန်</button>
+            
+            <div class="social-grid">
+                <a href="https://www.facebook.com/share/1HGhQ4hVEf/" class="social-item" style="background: #1877F2;"><i class="fab fa-facebook"></i> Facebook</a>
+                <a href="https://www.tiktok.com/@dailywageapp" class="social-item" style="background: #000000;"><i class="fab fa-tiktok"></i> TikTok</a>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <div class="info-title"><i class="fas fa-globe" style="color: #1a73e8;"></i> Our Services</div>
+            <a href="https://wedsite-apk-services.netlify.app/" class="btn-link" target="_blank">
+                <span>Website Services</span> <i class="fas fa-external-link-alt" style="color: #1a73e8;"></i>
+            </a>
+            <a href="https://apk-downloads.netlify.app/" class="btn-link" target="_blank">
+                <span>APK Downloads</span> <i class="fas fa-download" style="color: #34A853;"></i>
+            </a>
+            <a href="https://premium-all-in-one.netlify.app/" class="btn-link" target="_blank">
+                <span>Premium All-in-One</span> <i class="fas fa-gem" style="color: #fbc02d;"></i>
+            </a>
+        </div>
+
+        <div class="info-section" style="text-align: center; background: none; box-shadow: none;">
+            <p style="color: #555; font-size: 14px; margin-bottom: 5px;">Contact Support</p>
+            <a href="tel:+660618201594" style="color: #d81b60; font-weight: 700; text-decoration: none; font-size: 18px;">0618201594</a>
+        </div>
+
+    </div>
+
+    <div id="aboutModal" class="modal" onclick="closeModal('aboutModal')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <h3 style="margin-bottom: 15px; color: #d81b60;">Daily Wage App ဆိုတာဘာလဲ</h3>
+            <p style="color: #555; line-height: 1.6; font-size: 14px;">
+                Daily Wage App ဆိုတာ မိမိရဲ့ နေ့စဉ်ဝင်ငွေ၊ ထွက်ငွေစာရင်းတွေကို အလွယ်တကူ မှတ်တမ်းတင် သိမ်းဆည်းထားနိုင်တဲ့ Tool တစ်ခုဖြစ်ပါတယ်။ <br><br>
+                မိမိရဲ့ စုစုပေါင်းဝင်ငွေတွေကို နေ့အလိုက်၊ လအလိုက် ပြန်လည်ကြည့်ရှုနိုင်ပြီး ငွေကြေးစီမံခန့်ခွဲမှုအတွက် အထောက်အကူပြုစေရန် ရည်ရွယ်ထုတ်လုပ်ထားခြင်း ဖြစ်ပါတယ်။
+            </p>
+            <button class="install-btn" style="margin-top: 20px;" onclick="closeModal('aboutModal')">ပိတ်မည်</button>
+        </div>
+    </div>
+
+    <div id="guideModal" class="modal" onclick="closeModal('guideModal')">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <h3 style="margin-bottom: 15px; color: #512da8;">အသုံးပြုနည်းလမ်းညွှန်</h3>
+            <div class="guide-step">
+                <strong>အဆင့် (၁)</strong>
+                <p style="font-size: 13px;">App ကို Install လုပ်ပြီး ဖွင့်လိုက်ပါ။</p>
+            </div>
+            <div class="guide-step">
+                <strong>အဆင့် (၂)</strong>
+                <p style="font-size: 13px;">ဝင်ငွေစာရင်းမှတ်ရန် '+' ခလုတ်ကို နှိပ်ပါ။</p>
+            </div>
+            <div class="guide-step">
+                <strong>အဆင့် (၃)</strong>
+                <p style="font-size: 13px;">ပမာဏနှင့် အကြောင်းအရာထည့်ပြီး 'Save' လုပ်ပါ။</p>
+            </div>
+            <div class="guide-step">
+                <strong>အဆင့် (၄)</strong>
+                <p style="font-size: 13px;">History တွင် မိမိမှတ်ထားသည်များကို ပြန်ကြည့်ပါ။</p>
+            </div>
+              <div class="guide-step">
+              <strong>အဆင့် (၅)</strong>
+                <p style="font-size: 13px;">Battle wageမှာပြိုင်ဆိုင်နိုင်ယူလိုက့်ပါ</p>
+            </div>
+            <button class="install-btn" style="margin-top: 20px; background: #512da8;" onclick="closeModal('guideModal')">နားလည်ပါပြီ</button>
         </div>
     </div>
 
@@ -166,6 +271,11 @@
     </div>
 
     <script>
+        /* Modal Functions */
+        function openModal(id) { document.getElementById(id).style.display = 'block'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+        /* Original Functions preserved */
         function toggleMenu() {
             const menu = document.getElementById('sideMenu');
             const overlay = document.getElementById('overlay');
@@ -195,9 +305,9 @@
 
         function changeLanguage(lang) {
             const data = {
-                en: { home: "Home", guide: "User Guide", feed: "Feedback", search: "Search apps...", all: "All", tools: "Tools", games: "Games", t1: "Daily Wage App", d1: "Track your daily income.", t2: "New App", d2: "Coming soon.", btn: "Install" },
-                my: { home: "ပင်မ", guide: "အသုံးပြုနည်း", feed: "အကြံပြုရန်", search: "ရှာဖွေရန်...", all: "အားလုံး", tools: "ကိရိယာ", games: "ဂိမ်းများ", t1: "Daily Wage App", d1: "နေ့စဉ်ဝင်ငွေထွက်ငွေတွက်ရန်", t2: "အက်ပ်အသစ်", d2: "မကြာမီလာမည်။", btn: "Install" },
-                th: { home: "หน้าแรก", guide: "วิธีใช้", feed: "ข้อเสนอแนะ", search: "ค้นหาแอป...", all: "ทั้งหมด", tools: "เครื่องมือ", games: "เกม", t1: "แอปบันทึกรายวัน", d1: "จัดการรายได้ประจำวัน", t2: "แอปใหม่", d2: "เร็วๆ นี้", btn: "ติดตั้ง" }
+                en: { home: "Home", guide: "User Guide", feed: "Feedback", search: "Search apps...", all: "All", tools: "Tools", games: "Games", t1: "Daily Wage App", d1: "Track your daily income.", t2: "Coming Soon", d2: "More apps on the way.", btn: "Install Now" },
+                my: { home: "ပင်မ", guide: "အသုံးပြုနည်း", feed: "အကြံပြုရန်", search: "ရှာဖွေရန်...", all: "အားလုံး", tools: "ကိရိယာ", games: "ဂိမ်းများ", t1: "Daily Wage App", d1: "နေ့စဉ်ဝင်ငွေထွက်ငွေတွက်ရန်", t2: "မကြာမီလာမည်", d2: "နောက်ထပ် အက်ပ်များ။", btn: "ရယူမည်" },
+                th: { home: "หน้าแรก", guide: "วิธีใช้", feed: "ข้อเสนอแนะ", search: "ค้นหาแอป...", all: "ทั้งหมด", tools: "เครื่องมือ", games: "เกม", t1: "แอปบันทึกรายวัน", d1: "จัดการรายได้ประจำวัน", t2: "เร็วๆ นี้", d2: "แอปเพิ่มเติมเร็วๆ นี้", btn: "ติดตั้ง" }
             };
             const l = data[lang];
             document.getElementById('nav-home').innerText = l.home;
@@ -209,8 +319,6 @@
             document.getElementById('tab-games').innerText = l.games;
             document.querySelector('.title-app1').innerText = l.t1;
             document.querySelector('.desc-app1').innerText = l.d1;
-            document.querySelector('.title-app2').innerText = l.t2;
-            document.querySelector('.desc-app2').innerText = l.d2;
             document.querySelectorAll('.dl-text').forEach(btn => btn.innerText = l.btn);
             if(document.getElementById('sideMenu').classList.contains('active')) toggleMenu();
         }
