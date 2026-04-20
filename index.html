@@ -5,160 +5,138 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Y Apps Store - Premium Services</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <script type='text/javascript' src='https://pl28344759.effectivegatecpm.com/eb/25/40/eb25401554277dcd898bb0414f0023b0.js'></script>
 
     <style>
-        /* Modern CSS Variables */
-        :root {
-            --primary-color: #d81b60;
-            --secondary-color: #512da8;
-            --accent-color: #1a73e8;
-            --glass-bg: rgba(255, 255, 255, 0.15);
-            --card-gradient: linear-gradient(135deg, #e52d27, #b31217, #702082);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
-
+        /* အခြေခံ Style များ (Original ထိန်းသိမ်းထားသည်) */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
             background: linear-gradient(180deg, #ff7e5f, #feb47b, #86a8e7, #91eae4); 
             background-attachment: fixed;
             padding-bottom: 100px; 
-            color: #333;
         }
 
-        /* Header & Banner */
-        .header-container { width: 100%; position: relative; background: #fff; overflow: hidden; }
+        /* Header Section */
+        .header-container { width: 100%; position: relative; background: #fff; }
         .header-banner {
-            width: 100%; height: auto; aspect-ratio: 1080/320;
+            width: 100%; height: auto; aspect-ratio: 1080/280;
             background: url('https://i.postimg.cc/g0ZWnrMd/17837.png') no-repeat center;
             background-size: cover; display: block;
         }
 
         .menu-trigger {
-            position: absolute; top: 15px; right: 15px;
-            background: rgba(0, 0, 0, 0.5); color: white;
-            width: 45px; height: 45px; border-radius: 50%;
+            position: absolute; top: 12px; right: 15px;
+            background: rgba(0, 0, 0, 0.4); color: white;
+            width: 42px; height: 42px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            cursor: pointer; z-index: 1001; font-size: 20px; backdrop-filter: blur(8px);
-            transition: 0.3s;
+            cursor: pointer; z-index: 1001; font-size: 20px; backdrop-filter: blur(5px);
         }
 
-        /* Search Section */
-        .search-section { padding: 20px 16px 10px; position: relative; }
+        /* Search & Tabs */
+        .search-section { padding: 15px 16px 5px; position: relative; }
         .search-box {
-            width: 100%; padding: 14px 15px 14px 50px; border-radius: 15px;
-            border: 1px solid rgba(255,255,255,0.3); background: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1); font-size: 15px; outline: none;
+            width: 100%; padding: 12px 15px 12px 45px; border-radius: 12px;
+            border: none; background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); font-size: 14px;
         }
-        .search-icon { position: absolute; left: 32px; top: 35px; color: var(--primary-color); font-size: 18px; }
+        .search-icon { position: absolute; left: 30px; top: 28px; color: #d81b60; font-size: 16px; }
 
-        /* Categories Tabs */
-        .tabs-container { display: flex; gap: 12px; padding: 10px 16px; overflow-x: auto; scrollbar-width: none; }
-        .tabs-container::-webkit-scrollbar { display: none; }
+        .tabs-container { display: flex; gap: 10px; padding: 10px 16px; overflow-x: auto; scrollbar-width: none; }
         .tab-btn {
-            padding: 10px 24px; border-radius: 25px; border: none;
-            background: var(--glass-bg); color: white;
+            padding: 8px 22px; border-radius: 20px; border: none;
+            background: rgba(255, 255, 255, 0.2); color: white;
             font-weight: 600; cursor: pointer; transition: 0.3s; white-space: nowrap;
-            backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.2);
         }
-        .tab-btn.active { background: white; color: var(--primary-color); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .tab-btn.active { background: white; color: #d81b60; }
 
-        /* App Cards Design */
-        .container { max-width: 500px; margin: 0 auto; padding: 16px; }
+        /* App Cards */
+        .container { max-width: 480px; margin: 0 auto; padding: 0 16px 16px; }
         .app-card {
-            background: var(--card-gradient);
-            border-radius: 28px; padding: 25px; margin-bottom: 25px;
-            text-align: center; box-shadow: 0 15px 35px rgba(0,0,0,0.3); color: white;
-            border: 1px solid rgba(255,255,255,0.1);
+            background: linear-gradient(135deg, #e52d27, #b31217, #702082);
+            border-radius: 22px; padding: 22px; margin-bottom: 25px;
+            text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.25); color: white;
         }
-        .app-icon { 
-            width: 90px; height: 90px; border-radius: 22px; 
-            object-fit: cover; border: 3px solid rgba(255,255,255,0.4); 
-            margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
+        .app-icon { width: 80px; height: 80px; border-radius: 20px; object-fit: cover; border: 2.5px solid rgba(255,255,255,0.3); margin-bottom: 10px; }
         
-        .screenshot-slider { 
-            display: flex; gap: 12px; overflow-x: auto; 
-            margin: 20px 0; padding-bottom: 10px; scroll-behavior: smooth;
-        }
-        .screenshot-slider img { 
-            width: 120px; height: 210px; border-radius: 15px; 
-            object-fit: cover; border: 1px solid rgba(255,255,255,0.3); 
-            transition: 0.3s;
-        }
+        .screenshot-slider { display: flex; gap: 10px; overflow-x: auto; margin: 15px 0; padding-bottom: 5px; }
+        .screenshot-slider img { width: 110px; height: 190px; border-radius: 12px; object-fit: cover; border: 1px solid rgba(255,255,255,0.2); }
 
         .install-btn {
-            background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
-            color: white; border: none; padding: 16px; border-radius: 16px; 
-            width: 100%; font-weight: 700; cursor: pointer; font-size: 16px;
-            box-shadow: 0 6px 20px rgba(0,114,255,0.4); transition: 0.3s;
-            text-decoration: none; display: block;
+            background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+            color: white; border: none; padding: 14px; border-radius: 14px; width: 100%; font-weight: 700; cursor: pointer;
+            transition: transform 0.2s;
         }
-        .install-btn:active { transform: scale(0.96); }
+        .install-btn:active { transform: scale(0.98); }
 
-        /* Info Sections */
+        /* --- ထပ်တိုး Section များ --- */
         .info-section {
-            background: rgba(255, 255, 255, 0.9); border-radius: 24px; padding: 22px; 
-            margin-bottom: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            background: white; border-radius: 20px; padding: 20px; margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-        .info-title { font-size: 19px; font-weight: 700; color: #222; margin-bottom: 18px; display: flex; align-items: center; gap: 12px; }
+        .info-title { font-size: 18px; font-weight: 700; color: #333; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
         
         .btn-link {
             display: flex; align-items: center; justify-content: space-between;
-            background: #f1f3f5; padding: 16px; border-radius: 15px;
-            text-decoration: none; color: #333; margin-bottom: 12px;
-            border: 1px solid #e9ecef; transition: 0.3s; font-weight: 500;
+            background: #f8f9fa; padding: 15px; border-radius: 12px;
+            text-decoration: none; color: #333; margin-bottom: 10px;
+            border: 1px solid #eee; transition: 0.3s;
         }
-        .btn-link:hover { background: #e9ecef; transform: translateX(5px); }
+        .btn-link:hover { background: #eef2f7; }
+        .btn-link i { font-size: 20px; }
 
         /* Floating Messenger */
         .messenger-float {
-            position: fixed; bottom: 85px; right: 20px;
-            width: 60px; height: 60px; background: #0084ff;
+            position: fixed; bottom: 120px; right: 20px; /* ကြော်ညာစာမျက်နှာနဲ့ မငြိအောင် နည်းနည်းမြှင့်ထားသည် */
+            width: 55px; height: 55px; background: #0084ff;
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 30px; box-shadow: 0 8px 25px rgba(0,132,255,0.4);
-            z-index: 1999; cursor: pointer; transition: 0.3s;
+            color: white; font-size: 28px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 1999; cursor: pointer; text-decoration: none;
         }
-        .messenger-float:hover { transform: scale(1.1); }
 
-        /* Modal Styles */
+        /* Modal / Guide Style */
         .modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); z-index: 3000; backdrop-filter: blur(5px);
+            background: rgba(0,0,0,0.8); z-index: 3000; padding: 20px; overflow-y: auto;
         }
         .modal-content {
-            background: white; border-radius: 28px; padding: 30px; 
-            max-width: 380px; margin: 60px auto; position: relative;
-            animation: slideUp 0.4s ease-out;
+            background: white; border-radius: 20px; padding: 25px; max-width: 400px; margin: 40px auto;
         }
-        @keyframes slideUp { from { transform: translateY(50px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        
-        .guide-step { margin-bottom: 18px; padding-left: 15px; border-left: 4px solid var(--primary-color); }
+        .guide-step { margin-bottom: 15px; padding-left: 10px; border-left: 3px solid #d81b60; }
 
         /* Social Grid */
-        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px; }
+        .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
         .social-item {
-            padding: 14px; border-radius: 12px; text-align: center; 
-            color: white; text-decoration: none; font-weight: 600; font-size: 14px;
+            padding: 12px; border-radius: 10px; text-align: center; color: white; text-decoration: none; font-weight: 600;
         }
 
-        /* Side Menu */
+        /* Menu Styles (Original) */
         .side-menu {
-            position: fixed; top: 0; right: -305px; width: 300px; height: 100%;
+            position: fixed; top: 0; right: -285px; width: 280px; height: 100%;
             background: white; z-index: 2005; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+            display: flex; flex-direction: column;
         }
         .side-menu.active { right: 0; }
-        .menu-header { padding: 40px 20px; background: #f8f9fa; text-align: center; border-bottom: 1px solid #eee; }
-        .menu-header img { width: 75px; border-radius: 20px; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .menu-item { padding: 16px 30px; display: flex; align-items: center; gap: 18px; text-decoration: none; color: #444; font-weight: 500; border-bottom: 1px solid #f9f9f9; }
-        .menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; z-index: 1500; backdrop-filter: blur(2px); }
+        .menu-header { padding: 30px 20px; border-bottom: 1px solid #f0f0f0; text-align: center; }
+        .menu-header img { width: 65px; border-radius: 18px; margin-bottom: 10px; }
+        .menu-item { padding: 15px 25px; display: flex; align-items: center; gap: 15px; text-decoration: none; color: #333; font-size: 15px; }
+        .menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: none; z-index: 1500; }
 
-        /* Footer Ad Area */
-        .footer-ad-container {
-            position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(255,255,255,0.95);
-            display: flex; justify-content: center; align-items: center; z-index: 2000; padding: 8px 0; 
-            border-top: 1px solid #eee; backdrop-filter: blur(10px);
+        /* Ad Banner Section (Sticky Bottom) */
+        .ad-banner-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #fff;
+            z-index: 2000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-top: 1px solid #ddd;
+            padding: 5px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
         }
     </style>
 </head>
@@ -189,18 +167,19 @@
     <div class="side-menu" id="sideMenu">
         <div class="menu-header">
             <img src="https://i.postimg.cc/mrKY1fwZ/1024x1024.png">
-            <h2 style="font-size: 20px; color: #333;">Y Apps Store</h2>
+            <h2 style="font-size: 18px; color: #333;">Y Apps Store</h2>
         </div>
-        <div class="menu-content">
-            <a href="#" class="menu-item" onclick="toggleMenu()"><i class="fas fa-home" style="color:var(--primary-color)"></i> <span id="nav-home">Home</span></a>
+        <div class="menu-content" style="overflow-y: auto;">
+            <a href="#" class="menu-item" onclick="toggleMenu()"><i class="fas fa-home" style="color:#d81b60"></i> <span id="nav-home">Home</span></a>
             <a href="https://youtu.be/1rMyLT-PezI" class="menu-item" target="_blank"><i class="fab fa-youtube" style="color:#FF0000;"></i> <span id="nav-guide">User Guide</span></a>
-            <a href="mailto:dailywage172@gmail.com" class="menu-item"><i class="fas fa-envelope" style="color:var(--accent-color);"></i> <span id="nav-feedback">Feedback</span></a>
+            <a href="mailto:dailywage172@gmail.com" class="menu-item"><i class="fas fa-envelope" style="color:#1a73e8;"></i> <span id="nav-feedback">Feedback</span></a>
+            <div style="height: 1px; background: #eee; margin: 10px 25px;"></div>
             <a href="https://www.facebook.com/share/1HGhQ4hVEf/" class="menu-item" target="_blank"><i class="fab fa-facebook" style="color:#1877F2;"></i> <span>Facebook Page</span></a>
             <a href="tel:+660618201594" class="menu-item"><i class="fas fa-phone" style="color:#34A853;"></i> <span>Contact</span></a>
             
             <div style="padding: 25px;">
-                <label style="font-size: 12px; color: #888; font-weight: 700; text-transform: uppercase;">Language</label>
-                <select id="lang-select" style="width:100%; padding:12px; margin-top:8px; border-radius:10px; border: 1px solid #ddd; background: #fff;" onchange="changeLanguage(this.value)">
+                <label style="font-size: 12px; color: #888; margin-bottom: 5px; display: block;">LANGUAGE</label>
+                <select id="lang-select" style="width:100%; padding:12px; border-radius:8px; border: 1px solid #ddd; outline: none;" onchange="changeLanguage(this.value)">
                     <option value="en">🇺🇸 English</option>
                     <option value="my">🇲🇲 မြန်မာ</option>
                     <option value="th">🇹🇭 ไทย</option>
@@ -210,11 +189,10 @@
     </div>
 
     <div class="container" id="appContainer">
-        
         <div class="app-card" data-category="tools">
             <img src="https://i.postimg.cc/mrKY1fwZ/1024x1024.png" class="app-icon">
-            <div class="app-title title-app1" style="font-size: 22px; font-weight: 700;">Daily Wage App</div>
-            <div class="app-desc desc-app1" style="font-size: 14px; opacity: 0.9; margin-bottom: 15px;">Track your daily income.</div>
+            <div class="app-title title-app1" style="font-size: 20px; font-weight: 700;">Daily Wage App</div>
+            <div class="app-desc desc-app1" style="font-size: 13px; color: rgba(255,255,255,0.85); margin-bottom: 10px;">Track your daily income.</div>
             
             <div class="screenshot-slider">
                 <img src="https://i.postimg.cc/FKWT5xbJ/Screenshot_2026_04_13_12_35_05_104_com_daily_wage.jpg">
@@ -224,26 +202,26 @@
                 <img src="https://i.postimg.cc/qRNjkCQR/Screenshot_2026_04_13_12_36_03_495_com_daily_wage.jpg">
             </div>
             
-            <a href="https://apkpure.com/daily-wage/com.daily.wage" class="install-btn dl-text">Install Now</a>
+            <button class="install-btn dl-text" onclick="window.location.href='https://apkpure.com/daily-wage/com.daily.wage'">Install Now</button>
         </div>
 
         <div class="info-section">
-            <div class="info-title"><i class="fas fa-info-circle" style="color: var(--primary-color);"></i> About App</div>
-            <button class="install-btn" style="background: #333; box-shadow: none; margin-bottom: 12px;" onclick="openModal('aboutModal')">DailyWage Apk ဆိုတာဘာလဲ</button>
-            <button class="install-btn" style="background: var(--secondary-color); box-shadow: none;" onclick="openModal('guideModal')">အသုံးပြုနည်းလမ်းညွှန်</button>
+            <div class="info-title"><i class="fas fa-info-circle" style="color: #d81b60;"></i> About App</div>
+            <button class="install-btn" style="background: #333; margin-bottom: 10px;" onclick="openModal('aboutModal')">DailyWage Apk ဆိုတာဘာလဲ</button>
+            <button class="install-btn" style="background: #512da8;" onclick="openModal('guideModal')">အသုံးပြုနည်းလမ်းညွှန်</button>
             
             <div class="social-grid">
                 <a href="https://www.facebook.com/share/1HGhQ4hVEf/" class="social-item" style="background: #1877F2;"><i class="fab fa-facebook"></i> Facebook</a>
-                <a href="https://www.tiktok.com/@dailywageapp" class="social-item" style="background: #000;"><i class="fab fa-tiktok"></i> TikTok</a>
+                <a href="https://www.tiktok.com/@dailywageapp" class="social-item" style="background: #000000;"><i class="fab fa-tiktok"></i> TikTok</a>
             </div>
         </div>
 
         <div class="info-section">
-            <div class="info-title"><i class="fas fa-globe" style="color: var(--accent-color);"></i> Our Services</div>
+            <div class="info-title"><i class="fas fa-globe" style="color: #1a73e8;"></i> Our Services</div>
             <a href="https://wedsite-apk-services.netlify.app/" class="btn-link" target="_blank">
-                <span>Website Services</span> <i class="fas fa-external-link-alt" style="color: var(--accent-color);"></i>
+                <span>Website Services</span> <i class="fas fa-external-link-alt" style="color: #1a73e8;"></i>
             </a>
-            <a href="https://dailywage.apk.com" class="btn-link" target="_blank">
+            <a href="https://apk-downloads.netlify.app/" class="btn-link" target="_blank">
                 <span>APK Downloads</span> <i class="fas fa-download" style="color: #34A853;"></i>
             </a>
             <a href="https://premium-all-in-one.netlify.app/" class="btn-link" target="_blank">
@@ -252,44 +230,69 @@
         </div>
 
         <div class="info-section" style="text-align: center; background: none; box-shadow: none;">
-            <p style="color: #666; font-size: 14px; margin-bottom: 5px;">Need Help? Contact Support</p>
-            <a href="tel:+660618201594" style="color: var(--primary-color); font-weight: 700; text-decoration: none; font-size: 20px;">0618201594</a>
+            <p style="color: #555; font-size: 14px; margin-bottom: 5px;">Contact Support</p>
+            <a href="tel:+660618201594" style="color: #d81b60; font-weight: 700; text-decoration: none; font-size: 18px;">0618201594</a>
         </div>
 
     </div>
 
+    <div class="ad-banner-footer">
+        <script>
+            atOptions = {
+                'key' : '1f368fdf67bf1944d873877b1354fd14',
+                'format' : 'iframe',
+                'height' : 50,
+                'width' : 320,
+                'params' : {}
+            };
+        </script>
+        <script src="https://www.highperformanceformat.com/1f368fdf67bf1944d873877b1354fd14/invoke.js"></script>
+    </div>
+
     <div id="aboutModal" class="modal" onclick="closeModal('aboutModal')">
         <div class="modal-content" onclick="event.stopPropagation()">
-            <h3 style="margin-bottom: 15px; color: var(--primary-color);">Daily Wage App ဆိုတာဘာလဲ</h3>
-            <p style="color: #555; line-height: 1.7; font-size: 14px;">
+            <h3 style="margin-bottom: 15px; color: #d81b60;">Daily Wage App ဆိုတာဘာလဲ</h3>
+            <p style="color: #555; line-height: 1.6; font-size: 14px;">
                 Daily Wage App ဆိုတာ မိမိရဲ့ နေ့စဉ်ဝင်ငွေ၊ ထွက်ငွေစာရင်းတွေကို အလွယ်တကူ မှတ်တမ်းတင် သိမ်းဆည်းထားနိုင်တဲ့ Tool တစ်ခုဖြစ်ပါတယ်။ <br><br>
                 မိမိရဲ့ စုစုပေါင်းဝင်ငွေတွေကို နေ့အလိုက်၊ လအလိုက် ပြန်လည်ကြည့်ရှုနိုင်ပြီး ငွေကြေးစီမံခန့်ခွဲမှုအတွက် အထောက်အကူပြုစေရန် ရည်ရွယ်ထုတ်လုပ်ထားခြင်း ဖြစ်ပါတယ်။
             </p>
-            <button class="install-btn" style="margin-top: 25px; background: var(--primary-color);" onclick="closeModal('aboutModal')">ပိတ်မည်</button>
+            <button class="install-btn" style="margin-top: 20px;" onclick="closeModal('aboutModal')">ပိတ်မည်</button>
         </div>
     </div>
 
     <div id="guideModal" class="modal" onclick="closeModal('guideModal')">
         <div class="modal-content" onclick="event.stopPropagation()">
-            <h3 style="margin-bottom: 15px; color: var(--secondary-color);">အသုံးပြုနည်းလမ်းညွှန်</h3>
-            <div class="guide-step"><strong>အဆင့် (၁)</strong><p style="font-size: 13px;">App ကို Install လုပ်ပြီး ဖွင့်လိုက်ပါ။</p></div>
-            <div class="guide-step"><strong>အဆင့် (၂)</strong><p style="font-size: 13px;">ဝင်ငွေစာရင်းမှတ်ရန် '+' ခလုတ်ကို နှိပ်ပါ။</p></div>
-            <div class="guide-step"><strong>အဆင့် (၃)</strong><p style="font-size: 13px;">ပမာဏနှင့် အကြောင်းအရာထည့်ပြီး 'Save' လုပ်ပါ။</p></div>
-            <div class="guide-step"><strong>အဆင့် (၄)</strong><p style="font-size: 13px;">History တွင် မိမိမှတ်ထားသည်များကို ပြန်ကြည့်ပါ။</p></div>
-            <div class="guide-step"><strong>အဆင့် (၅)</strong><p style="font-size: 13px;">Battle wage မှာ ပြိုင်ဆိုင်မှုများ ရယူလိုက်ပါ။</p></div>
-            <button class="install-btn" style="margin-top: 20px; background: var(--secondary-color);" onclick="closeModal('guideModal')">နားလည်ပါပြီ</button>
+            <h3 style="margin-bottom: 15px; color: #512da8;">အသုံးပြုနည်းလမ်းညွှန်</h3>
+            <div class="guide-step">
+                <strong>အဆင့် (၁)</strong>
+                <p style="font-size: 13px;">App ကို Install လုပ်ပြီး ဖွင့်လိုက်ပါ။</p>
+            </div>
+            <div class="guide-step">
+                <strong>အဆင့် (၂)</strong>
+                <p style="font-size: 13px;">ဝင်ငွေစာရင်းမှတ်ရန် '+' ခလုတ်ကို နှိပ်ပါ။</p>
+            </div>
+            <div class="guide-step">
+                <strong>အဆင့် (၃)</strong>
+                <p style="font-size: 13px;">ပမာဏနှင့် အကြောင်းအရာထည့်ပြီး 'Save' လုပ်ပါ။</p>
+            </div>
+            <div class="guide-step">
+                <strong>အဆင့် (၄)</strong>
+                <p style="font-size: 13px;">History တွင် မိမိမှတ်ထားသည်များကို ပြန်ကြည့်ပါ။</p>
+            </div>
+              <div class="guide-step">
+              <strong>အဆင့် (၅)</strong>
+                <p style="font-size: 13px;">Battle wageမှာပြိုင်ဆိုင်နိုင်ယူလိုက့်ပါ</p>
+            </div>
+            <button class="install-btn" style="margin-top: 20px; background: #512da8;" onclick="closeModal('guideModal')">နားလည်ပါပြီ</button>
         </div>
     </div>
 
-    <div class="footer-ad-container">
-        <script type="text/javascript">
-            atOptions = { 'key' : '1f368fdf67bf1944d873877b1354fd14', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
-        </script>
-        <script type="text/javascript" src="https://www.highperformanceformat.com/1f368fdf67bf1944d873877b1354fd14/invoke.js"></script>
-    </div>
-
     <script>
-        /* Sidebar Toggle */
+        /* Modal Functions */
+        function openModal(id) { document.getElementById(id).style.display = 'block'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+
+        /* Original Functions preserved */
         function toggleMenu() {
             const menu = document.getElementById('sideMenu');
             const overlay = document.getElementById('overlay');
@@ -297,11 +300,6 @@
             overlay.style.display = menu.classList.contains('active') ? 'block' : 'none';
         }
 
-        /* Modal Controls */
-        function openModal(id) { document.getElementById(id).style.display = 'block'; }
-        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-
-        /* Search Logic */
         function searchApps() {
             let input = document.getElementById('searchInput').value.toLowerCase();
             let cards = document.getElementsByClassName('app-card');
@@ -311,7 +309,6 @@
             }
         }
 
-        /* Filter Categories */
         function filterCat(cat) {
             let cards = document.getElementsByClassName('app-card');
             let btns = document.getElementsByClassName('tab-btn');
@@ -323,12 +320,11 @@
             }
         }
 
-        /* Multi-language Logic */
         function changeLanguage(lang) {
             const data = {
-                en: { home: "Home", guide: "User Guide", feed: "Feedback", search: "Search apps...", all: "All", tools: "Tools", games: "Games", t1: "Daily Wage App", d1: "Track your daily income.", btn: "Install Now" },
-                my: { home: "ပင်မ", guide: "အသုံးပြုနည်း", feed: "အကြံပြုရန်", search: "ရှာဖွေရန်...", all: "အားလုံး", tools: "ကိရိယာ", games: "ဂိမ်းများ", t1: "Daily Wage App", d1: "နေ့စဉ်ဝင်ငွေထွက်ငွေတွက်ရန်", btn: "ရယူမည်" },
-                th: { home: "หน้าแรก", guide: "วิธีใช้", feed: "ข้อเสนอแนะ", search: "ค้นหาแอป...", all: "ทั้งหมด", tools: "เครื่องมือ", games: "เกม", t1: "แอปบันทึกรายวัน", d1: "จัดการรายได้ประจำวัน", btn: "ติดตั้ง" }
+                en: { home: "Home", guide: "User Guide", feed: "Feedback", search: "Search apps...", all: "All", tools: "Tools", games: "Games", t1: "Daily Wage App", d1: "Track your daily income.", t2: "Coming Soon", d2: "More apps on the way.", btn: "Install Now" },
+                my: { home: "ပင်မ", guide: "အသုံးပြုနည်း", feed: "အကြံပြုရန်", search: "ရှာဖွေရန်...", all: "အားလုံး", tools: "ကိရိယာ", games: "ဂိမ်းများ", t1: "Daily Wage App", d1: "နေ့စဉ်ဝင်ငွေထွက်ငွေတွက်ရန်", t2: "မကြာမီလာမည်", d2: "နောက်ထပ် အက်ပ်များ။", btn: "ရယူမည်" },
+                th: { home: "หน้าแรก", guide: "วิธีใช้", feed: "ข้อเสนอแนะ", search: "ค้นหาแอป...", all: "ทั้งหมด", tools: "เครื่องมือ", games: "เกม", t1: "แอปบันทึกรายวัน", d1: "จัดการรายได้ประจำวัน", t2: "เร็วๆ นี้", d2: "แอปเพิ่มเติมเร็วๆ นี้", btn: "ติดตั้ง" }
             };
             const l = data[lang];
             document.getElementById('nav-home').innerText = l.home;
