@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Admin Panel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <style>
+        .loading-spinner { display: inline-block; width: 20px; height: 20px; border: 3px solid rgba(0,0,0,.3); border-radius: 50%; border-top-color: #3b82f6; animation: spin 1s ease-in-out infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .error-message { background: #dc2626; color: white; padding: 12px; border-radius: 8px; margin: 10px 0; }
+        .success-message { background: #16a34a; color: white; padding: 12px; border-radius: 8px; margin: 10px 0; }
+        .warning-message { background: #ea580c; color: white; padding: 12px; border-radius: 8px; margin: 10px 0; }
+        .modal-backdrop { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 40; }
+        .modal-backdrop.active { display: flex; align-items: center; justify-content: center; }
+        .modal { background: white; border-radius: 12px; padding: 24px; max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto; }
+        .table-container { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #e5e7eb; }
+        th { background: #f3f4f6; font-weight: 600; }
+        tr:hover { background: #f9fafb; }
+        .badge { display: inline-block; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600; }
+        .badge-success { background: #d1fae5; color: #065f46; }
+        .badge-danger { background: #fee2e2; color: #991b1b; }
+        .btn-sm { padding: 6px 12px; font-size: 12px; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        .btn-blue { background: #3b82f6; color: white; }
+        .btn-blue:hover { background: #2563eb; }
+        .btn-red { background: #ef4444; color: white; }
+        .btn-red:hover { background: #dc2626; }
+        .btn-green { background: #10b981; color: white; }
+        .btn-green:hover { background: #059669; }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; margin-bottom: 6px; font-weight: 600; color: #374151; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
+        .auth-section { background: #fef3c7; padding: 16px; border-radius: 8px; margin-bottom: 20px; }
+        .auth-section p { color: #92400e; margin-bottom: 10px; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #e5e7eb; }
+        .tab { padding: 12px 16px; cursor: pointer; border-bottom: 3px solid transparent; transition: 0.2s; color: #6b7280; }
+        .tab.active { color: #3b82f6; border-bottom-color: #3b82f6; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <nav class="bg-white shadow">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-blue-600">
+                <i class="fas fa-film"></i> Movie Admin Panel
+            </h1>
+            <div class="flex items-center gap-4">
+                <span id="user-email" class="text-sm text-gray-600"></span>
+                <button id="logout-btn" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-semibold transition">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="auth-container" class="min-h-screen bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-xl p-8 max-w-400px w-full">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">
+                <i class="fas fa-lock"></i> Admin Login
+            </h2>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="email" placeholder="admin@example.com" />
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="Enter password" />
+            </div>
+            <div id="auth-message"></div>
+            <button id="login-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+            <p class="text-center text-gray-600 text-sm mt-4">
+                Demo: Use any email and password (Firebase Auth will handle it)
+            </p>
+        </div>
+    </div>
+
+    <div id="main-container" class="hidden min-h-screen">
+        <div class="max-w-7xl mx-auto px-4 py-8">
+            <div id="message-container"></div>
+
+            <div class="tabs">
+                <div class="tab active" onclick="switchTab('movies')">
+                    <i class="fas fa-list"></i> Movies List
+                </div>
+                <div class="tab" onclick="switchTab('add')">
+                    <i class="fas fa-plus"></i> Add Movie
+                </div>
+                <div class="tab" onclick="switchTab('stats')">
+                    <i class="fas fa-chart-bar"></i> Statistics
+                </div>
+            </div>
+
+            <!-- Movies List Tab -->
+            <div id="movies-tab" class="tab-content active">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xl font-bold text-gray-800">
+                            <i class="fas fa-film"></i> All Movies
+                        </h2>
+                        <button id="refresh-movies-btn" class="btn-blue btn-sm">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="search-input" placeholder="Search movies..." />
+                    </div>
+                    <div id="movies-loading" class="text-center py-8">
+                        <div class="loading-spinner mx-auto mb-2"></div>
+                        <p class="text-gray-500">Loading movies...</p>
+                    </div>
+                    <div id="movies-container" class="table-container hidden">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Poster</th>
+                                    <th>URL</th>
+                                    <th>Description</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="movies-list"></tbody>
+                        </table>
+                    </div>
+                    <div id="no-movies" class="text-center py-8 hidden">
+                        <i class="fas fa-inbox text-4xl text-gray-300 mb-2"></i>
+                        <p class="text-gray-500">No movies found</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add Movie Tab -->
+            <div id="add-tab" class="tab-content">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h2 class="text-xl font-bold text-gray-800 mb-6">
+                        <i class="fas fa-plus-circle"></i> Add New Movie
+                    </h2>
+                    <form id="add-movie-form">
+                        <div class="form-group">
+                            <label>Movie Title *</label>
+                            <input type="text" id="form-title" placeholder="Enter movie title" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Poster URL *</label>
+                            <input type="url" id="form-poster" placeholder="https://example.com/poster.jpg" required />
+                            <small class="text-gray-500">Image URL for the movie poster</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Video URL *</label>
+                            <input type="url" id="form-url" placeholder="https://drive.google.com/file/d/..." required />
+                            <small class="text-gray-500">Google Drive link or direct video URL</small>
+                        </div>
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea id="form-description" placeholder="Enter movie description..."></textarea>
+                        </div>
+                        <div class="flex gap-4">
+                            <button type="submit" class="btn-green btn-sm flex-1">
+                                <i class="fas fa-save"></i> Add Movie
+                            </button>
+                            <button type="reset" class="btn-sm flex-1" style="background: #6b7280; color: white;">
+                                <i class="fas fa-redo"></i> Clear
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Statistics Tab -->
+            <div id="stats-tab" class="tab-content">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">Total Movies</p>
+                                <p id="stat-total" class="text-3xl font-bold text-blue-600">0</p>
+                            </div>
+                            <i class="fas fa-film text-4xl text-blue-200"></i>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">Valid URLs</p>
+                                <p id="stat-valid" class="text-3xl font-bold text-green-600">0</p>
+                            </div>
+                            <i class="fas fa-check-circle text-4xl text-green-200"></i>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-500 text-sm">Missing Data</p>
+                                <p id="stat-missing" class="text-3xl font-bold text-red-600">0</p>
+                            </div>
+                            <i class="fas fa-exclamation-circle text-4xl text-red-200"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg shadow p-6 mt-6">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">Recent Activity</h3>
+                    <div id="activity-log" class="space-y-3">
+                        <p class="text-gray-500 text-center py-8">No activity yet</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="edit-modal-backdrop" class="modal-backdrop">
+        <div class="modal">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-edit"></i> Edit Movie
+            </h2>
+            <form id="edit-movie-form">
+                <input type="hidden" id="edit-doc-id" />
+                <div class="form-group">
+                    <label>Movie Title</label>
+                    <input type="text" id="edit-title" required />
+                </div>
+                <div class="form-group">
+                    <label>Poster URL</label>
+                    <input type="url" id="edit-poster" required />
+                </div>
+                <div class="form-group">
+                    <label>Video URL</label>
+                    <input type="url" id="edit-url" required />
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="edit-description"></textarea>
+                </div>
+                <div class="flex gap-4">
+                    <button type="submit" class="btn-green btn-sm flex-1">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                    <button type="button" class="btn-sm flex-1" style="background: #6b7280; color: white;" onclick="closeEditModal()">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyD7T7WZg0fLGTw6ShqDHjOva-btNF6O1AM",
+            authDomain: "seafood-oder.firebaseapp.com",
+            projectId: "seafood-oder",
+            storageBucket: "seafood-oder.firebasestorage.app",
+            messagingSenderId: "428949391732",
+            appId: "1:428949391732:web:8c0ab80a98d241b865c421"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // State
+        let currentUser = null;
+        let allMovies = [];
+        let activityLog = [];
+
+        // UI Elements
+        const authContainer = document.getElementById('auth-container');
+        const mainContainer = document.getElementById('main-container');
+        const messageContainer = document.getElementById('message-container');
+        const userEmail = document.getElementById('user-email');
+        const loginBtn = document.getElementById('login-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const authMessage = document.getElementById('auth-message');
+
+        // Show message
+        function showMessage(message, type = 'success') {
+            const div = document.createElement('div');
+            div.className = `${type}-message`;
+            div.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'exclamation-triangle'}"></i> ${message}`;
+            messageContainer.innerHTML = '';
+            messageContainer.appendChild(div);
+            setTimeout(() => div.remove(), 4000);
+        }
+
+        // Add activity log
+        function addActivity(action, details) {
+            const timestamp = new Date().toLocaleTimeString();
+            activityLog.unshift({ action, details, timestamp });
+            if (activityLog.length > 10) activityLog.pop();
+            updateActivityLog();
+        }
+
+        // Update activity log display
+        function updateActivityLog() {
+            const log = document.getElementById('activity-log');
+            if (activityLog.length === 0) {
+                log.innerHTML = '<p class="text-gray-500 text-center py-8">No activity yet</p>';
+                return;
+            }
+            log.innerHTML = activityLog.map(entry => `
+                <div class="p-3 bg-gray-50 rounded border-l-4 border-blue-500">
+                    <p class="font-semibold text-gray-800">${entry.action}</p>
+                    <p class="text-sm text-gray-600">${entry.details}</p>
+                    <p class="text-xs text-gray-400">${entry.timestamp}</p>
+                </div>
+            `).join('');
+        }
+
+        // Switch tabs
+        window.switchTab = function(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            event.target.closest('.tab').classList.add('active');
+            document.getElementById(`${tab}-tab`).classList.add('active');
+            if (tab === 'movies') loadMovies();
+            if (tab === 'stats') updateStats();
+        };
+
+        // Load movies
+        async function loadMovies() {
+            try {
+                document.getElementById('movies-loading').classList.remove('hidden');
+                document.getElementById('movies-container').classList.add('hidden');
+                document.getElementById('no-movies').classList.add('hidden');
+
+                const querySnapshot = await getDocs(collection(db, "movies"));
+                allMovies = [];
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    let movie = { id: doc.id, title: "No Title", poster: "", url: "", description: "" };
+                    Object.keys(data).forEach(key => {
+                        const k = key.trim().toLowerCase();
+                        if (k === "title") movie.title = data[key];
+                        if (k === "poster") movie.poster = data[key];
+                        if (k === "url") movie.url = data[key];
+                        if (k === "description" || k === "desc") movie.description = data[key];
+                    });
+                    allMovies.push(movie);
+                });
+
+                allMovies.sort((a, b) => (a.title || '').localeCompare(b.title || ''));
+                displayMovies(allMovies);
+                addActivity('Loaded movies', `${allMovies.length} movies loaded`);
+
+                document.getElementById('movies-loading').classList.add('hidden');
+                if (allMovies.length === 0) {
+                    document.getElementById('no-movies').classList.remove('hidden');
+                } else {
+                    document.getElementById('movies-container').classList.remove('hidden');
+                }
+            } catch (error) {
+                showMessage(`Error loading movies: ${error.message}`, 'error');
+                document.getElementById('movies-loading').classList.add('hidden');
+            }
+        }
+
+        // Display movies in table
+        function displayMovies(movies) {
+            const tbody = document.getElementById('movies-list');
+            tbody.innerHTML = movies.map(movie => `
+                <tr>
+                    <td class="font-semibold">${movie.title}</td>
+                    <td>
+                        ${movie.poster ? `<img src="${movie.poster}" alt="poster" style="height: 40px; border-radius: 4px;" onerror="this.src='https://via.placeholder.com/40x60?text=No+Image'">` : '<span class="text-gray-400">No image</span>'}
+                    </td>
+                    <td>
+                        <small class="text-gray-600 break-all">${movie.url ? movie.url.substring(0, 40) + '...' : 'No URL'}</small>
+                    </td>
+                    <td>
+                        <small class="text-gray-600">${movie.description ? movie.description.substring(0, 30) + '...' : 'No description'}</small>
+                    </td>
+                    <td>
+                        <button class="btn-blue btn-sm" onclick="editMovie('${movie.id}')">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="btn-red btn-sm" onclick="deleteMovie('${movie.id}', '${movie.title}')">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Filter movies
+        document.getElementById('search-input').addEventListener('keyup', (e) => {
+            const query = e.target.value.toLowerCase();
+            const filtered = allMovies.filter(m => m.title.toLowerCase().includes(query));
+            displayMovies(filtered);
+        });
+
+        // Add movie
+        document.getElementById('add-movie-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            try {
+                const movie = {
+                    title: document.getElementById('form-title').value,
+                    poster: document.getElementById('form-poster').value,
+                    url: document.getElementById('form-url').value,
+                    description: document.getElementById('form-description').value,
+                    createdAt: new Date().toISOString()
+                };
+
+                await addDoc(collection(db, "movies"), movie);
+                showMessage('Movie added successfully!', 'success');
+                addActivity('Added movie', movie.title);
+                document.getElementById('add-movie-form').reset();
+                loadMovies();
+            } catch (error) {
+                showMessage(`Error: ${error.message}`, 'error');
+            }
+        });
+
+        // Edit movie
+        window.editMovie = function(id) {
+            const movie = allMovies.find(m => m.id === id);
+            if (!movie) return;
+
+            document.getElementById('edit-doc-id').value = id;
+            document.getElementById('edit-title').value = movie.title;
+            document.getElementById('edit-poster').value = movie.poster;
+            document.getElementById('edit-url').value = movie.url;
+            document.getElementById('edit-description').value = movie.description;
+            document.getElementById('edit-modal-backdrop').classList.add('active');
+        };
+
+        window.closeEditModal = function() {
+            document.getElementById('edit-modal-backdrop').classList.remove('active');
+        };
+
+        document.getElementById('edit-movie-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            try {
+                const id = document.getElementById('edit-doc-id').value;
+                const updates = {
+                    title: document.getElementById('edit-title').value,
+                    poster: document.getElementById('edit-poster').value,
+                    url: document.getElementById('edit-url').value,
+                    description: document.getElementById('edit-description').value,
+                    updatedAt: new Date().toISOString()
+                };
+
+                await updateDoc(doc(db, "movies", id), updates);
+                showMessage('Movie updated successfully!', 'success');
+                addActivity('Updated movie', updates.title);
+                closeEditModal();
+                loadMovies();
+            } catch (error) {
+                showMessage(`Error: ${error.message}`, 'error');
+            }
+        });
+
+        // Delete movie
+        window.deleteMovie = function(id, title) {
+            if (confirm(`Are you sure you want to delete "${title}"?`)) {
+                deleteDoc(doc(db, "movies", id)).then(() => {
+                    showMessage('Movie deleted successfully!', 'success');
+                    addActivity('Deleted movie', title);
+                    loadMovies();
+                }).catch(error => {
+                    showMessage(`Error: ${error.message}`, 'error');
+                });
+            }
+        };
+
+        // Update statistics
+        function updateStats() {
+            const total = allMovies.length;
+            const valid = allMovies.filter(m => m.url && m.title && m.poster).length;
+            const missing = total - valid;
+
+            document.getElementById('stat-total').textContent = total;
+            document.getElementById('stat-valid').textContent = valid;
+            document.getElementById('stat-missing').textContent = missing;
+        }
+
+        // Refresh movies
+        document.getElementById('refresh-movies-btn').addEventListener('click', loadMovies);
+
+        // Authentication
+        loginBtn.addEventListener('click', async () => {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            if (!email || !password) {
+                authMessage.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-circle"></i> Please enter email and password</div>';
+                return;
+            }
+
+            try {
+                loginBtn.disabled = true;
+                loginBtn.innerHTML = '<div class="loading-spinner mx-auto"></div>';
+                await signInWithEmailAndPassword(auth, email, password);
+            } catch (error) {
+                authMessage.innerHTML = `<div class="error-message"><i class="fas fa-exclamation-circle"></i> ${error.message}</div>`;
+                loginBtn.disabled = false;
+                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
+            }
+        });
+
+        logoutBtn.addEventListener('click', async () => {
+            await signOut(auth);
+        });
+
+        // Monitor auth state
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                currentUser = user;
+                userEmail.textContent = user.email;
+                authContainer.classList.add('hidden');
+                mainContainer.classList.remove('hidden');
+                loadMovies();
+                addActivity('Logged in', user.email);
+            } else {
+                currentUser = null;
+                authContainer.classList.remove('hidden');
+                mainContainer.classList.add('hidden');
+                document.getElementById('email').value = '';
+                document.getElementById('password').value = '';
+                authMessage.innerHTML = '';
+            }
+        });
+    </script>
+</body>
+</html>
