@@ -59,7 +59,12 @@
         }
 
         @media (max-width: 768px) {
-            .header-banner { height: 180px; }
+            .header-banner { 
+                height: auto; 
+                aspect-ratio: 1080 / 280;
+                background-size: contain;
+                background-position: top center;
+            }
         }
 
         /* Navigation Bar */
@@ -335,6 +340,65 @@
             border-top: 1px solid #e2e8f0;
         }
 
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            padding: 20px;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: #fff;
+            max-width: 500px;
+            margin: 50px auto;
+            border-radius: 24px;
+            padding: 30px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-modal:hover { color: var(--accent); }
+
+        .modal-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--text-main);
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 10px;
+        }
+
+        .modal-body {
+            font-size: 0.95rem;
+            color: #475569;
+            line-height: 1.8;
+        }
+
+        .step-item {
+            margin-bottom: 15px;
+            padding-left: 15px;
+            border-left: 3px solid var(--primary);
+        }
+
     </style>
 </head>
 <body>
@@ -389,11 +453,11 @@
             <div class="info-card">
                 <h3><i class="fas fa-info-circle"></i> About App</h3>
                 <div class="action-list">
-                    <a href="#" class="action-item">
+                    <a href="javascript:void(0)" class="action-item" onclick="openModal('aboutModal')">
                         <span>DailyWage ဆိုတာဘာလဲ?</span>
                         <i class="fas fa-chevron-right"></i>
                     </a>
-                    <a href="#" class="action-item">
+                    <a href="javascript:void(0)" class="action-item" onclick="openModal('guideModal')">
                         <span>အသုံးပြုနည်းလမ်းညွှန်</span>
                         <i class="fas fa-chevron-right"></i>
                     </a>
@@ -426,7 +490,69 @@
         </div>
     </footer>
 
+    <!-- About Modal -->
+    <div id="aboutModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('aboutModal')">&times;</span>
+            <h2 class="modal-title">DailyWage ဆိုတာဘာလဲ?</h2>
+            <div class="modal-body">
+                <p>DailyWage App သည် သင့်၏ နေ့စဉ်ဝင်ငွေနှင့် ထွက်ငွေများကို စနစ်တကျ မှတ်တမ်းတင်နိုင်ရန် ဖန်တီးထားသော Premium App တစ်ခုဖြစ်ပါသည်။</p>
+                <br>
+                <div class="step-item">
+                    <strong>လုံခြုံမှု:</strong> သင့်ဒေတာများကို စိတ်ချစွာ သိမ်းဆည်းထားနိုင်ပါသည်။
+                </div>
+                <div class="step-item">
+                    <strong>လွယ်ကူမှု:</strong> ရိုးရှင်းသပ်ရပ်သော UI ကြောင့် မည်သူမဆို အလွယ်တကူ အသုံးပြုနိုင်ပါသည်။
+                </div>
+                <div class="step-item">
+                    <strong>အစီရင်ခံစာ:</strong> လစဉ်၊ နှစ်စဉ် ဝင်ငွေထွက်ငွေ ဇယားများကို ကြည့်ရှုနိုင်ပါသည်။
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Guide Modal -->
+    <div id="guideModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('guideModal')">&times;</span>
+            <h2 class="modal-title">အသုံးပြုနည်းလမ်းညွှန်</h2>
+            <div class="modal-body">
+                <div class="step-item">
+                    <strong>အဆင့် ၁:</strong> Install Now ခလုတ်ကိုနှိပ်ပြီး APK ဖိုင်ကို Download ရယူပါ။
+                </div>
+                <div class="step-item">
+                    <strong>အဆင့် ၂:</strong> Download ရရှိလာသော APK ကို Install လုပ်ပါ။ (Unknown Sources ခွင့်ပြုပေးရန် လိုအပ်ပါသည်)
+                </div>
+                <div class="step-item">
+                    <strong>အဆင့် ၃:</strong> App ကိုဖွင့်ပြီး သင့်၏ အကောင့်ကို စတင်တည်ဆောက်ပါ။
+                </div>
+                <div class="step-item">
+                    <strong>အဆင့် ၄:</strong> နေ့စဉ် ဝင်ငွေ/ထွက်ငွေများကို စတင်မှတ်တမ်းတင်နိုင်ပါပြီ။
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Modal Logic
+        function openModal(id) {
+            document.getElementById(id).style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent scroll
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                event.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
         // Basic search filter logic
         document.querySelector('.search-box').addEventListener('input', function(e) {
             const term = e.target.value.toLowerCase();
