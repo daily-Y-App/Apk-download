@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Y Apps Store - Premium Services</title>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
@@ -18,420 +19,175 @@
             --text-main: #1e293b;
             --text-muted: #64748b;
             --card-bg: #ffffff;
-            --nav-bg: rgba(255, 255, 255, 0.8);
+            --nav-bg: rgba(255, 255, 255, 0.95);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-body); color: var(--text-main); line-height: 1.6; }
 
-        body {
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Responsive Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Modern Header */
+        /* --- Header Scroll Effect --- */
         header {
             width: 100%;
             background: #fff;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
             position: sticky;
-            top: 0;
+            top: -150px; /* Banner အမြင့်လောက်ကို အပေါ်တွန်းထုတ်ရန် */
+            transition: top 0.3s;
             z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .header-banner-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            background: #fff;
+            padding: 5px 0;
+            height: 150px; /* Banner အမြင့် */
+            overflow: hidden;
+            transition: height 0.3s;
         }
 
         .header-banner {
             width: 100%;
-            height: 250px;
-            background: url('https://i.postimg.cc/SxW9qQGZ/1777620120524.png') no-repeat center;
-            background-size: cover;
-            position: relative;
+            max-width: 1080px;
+            aspect-ratio: 1080 / 300;
+            background: url('https://i.postimg.cc/SxW9qQGZ/1777620120524.png') no-repeat center center;
+            background-size: contain;
         }
 
-        @media (max-width: 768px) {
-            .header-banner { 
-                height: auto; 
-                aspect-ratio: 1080 / 280;
-                background-size: contain;
-                background-position: top center;
-            }
-        }
-
-        /* Navigation Bar */
         nav {
             background: var(--nav-bg);
             backdrop-filter: blur(10px);
-            padding: 15px 0;
+            padding: 10px 0;
             border-bottom: 1px solid rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
         }
 
-        .nav-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        .nav-content { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text-main); font-weight: 700; }
+        .logo img { width: 35px; height: 35px; border-radius: 8px; }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-            color: var(--text-main);
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-        .logo img {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 25px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-muted);
-            font-weight: 500;
-            transition: 0.3s;
-        }
-
-        .nav-links a:hover { color: var(--accent); }
-
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-        }
-
-        /* Search Section */
-        .search-wrapper {
-            margin: 30px 0;
-            display: flex;
-            justify-content: center;
-        }
-
-        .search-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-        }
-
-        .search-container i {
-            position: absolute;
-            left: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-muted);
-        }
-
+        /* --- Search Box --- */
+        .search-wrapper { margin: 20px 0; display: flex; justify-content: center; }
+        .search-container { position: relative; width: 100%; max-width: 600px; }
         .search-box {
-            width: 100%;
-            padding: 15px 15px 15px 55px;
-            border-radius: 30px;
-            border: 1px solid #e2e8f0;
-            background: #fff;
-            font-size: 1rem;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-            outline: none;
-            transition: 0.3s;
+            width: 100%; padding: 12px 15px 12px 45px; border-radius: 30px;
+            border: 1px solid #e2e8f0; background: #fff; font-size: 0.95rem; outline: none;
         }
+        .search-container i { position: absolute; left: 18px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
 
-        .search-box:focus {
-            border-color: var(--accent);
-            box-shadow: 0 4px 25px rgba(216, 27, 96, 0.1);
-        }
-
-        /* App Grid Layout */
-        .app-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
-        }
-
-        @media (max-width: 480px) {
-            .app-grid { grid-template-columns: 1fr; }
-        }
-
-        /* App Card Design */
+        /* --- App Card & Slideshow --- */
+        .app-grid { display: flex; justify-content: center; margin-bottom: 30px; }
         .app-card {
-            background: var(--card-bg);
-            border-radius: 24px;
-            padding: 30px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.04);
-            border: 1px solid #f1f5f9;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
+            background: var(--card-bg); border-radius: 24px; padding: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.04); border: 1px solid #f1f5f9;
+            text-align: center; max-width: 420px; width: 100%;
         }
 
-        .app-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+        .slideshow-wrapper {
+            position: relative; width: 100%; max-width: 240px; margin: 15px auto;
+            overflow: hidden; border-radius: 16px; border: 3px solid #f1f5f9; cursor: zoom-in;
         }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .app-card {
-            animation: fadeIn 0.6s ease-out forwards;
-        }
+        .slides { display: flex; transition: transform 0.5s ease-in-out; }
+        .slide { min-width: 100%; }
+        .slide img { width: 100%; height: auto; display: block; }
 
-        .app-icon {
-            width: 100px;
-            height: 100px;
-            border-radius: 24px;
-            object-fit: cover;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        .dots-container { display: flex; justify-content: center; gap: 6px; margin-bottom: 15px; }
+        .dot { width: 7px; height: 7px; background: #cbd5e1; border-radius: 50%; cursor: pointer; }
+        .dot.active { background: var(--primary); width: 15px; border-radius: 10px; }
+
+        /* --- Marketing Button --- */
+        .btn-about {
+            display: inline-block; padding: 12px 20px; background: #f0fdf4; border: 1.5px dashed var(--primary);
+            color: var(--primary-dark); border-radius: 12px; text-decoration: none; font-weight: 700;
+            margin-bottom: 20px; width: 100%; transition: 0.3s;
         }
+        .btn-about:hover { background: var(--primary); color: #fff; }
 
-        .app-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: #0f172a;
-        }
-
-        .app-desc {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 25px;
-            max-width: 280px;
-        }
-
-        /* Screenshot Slider */
-        .screenshot-container {
-            width: 100%;
-            overflow-x: auto;
-            display: flex;
-            gap: 12px;
-            padding: 10px 0 20px;
-            scrollbar-width: none;
-        }
-
-        .screenshot-container::-webkit-scrollbar { display: none; }
-
-        .screenshot-container img {
-            height: 220px;
-            border-radius: 16px;
-            flex-shrink: 0;
-            border: 1px solid #f1f5f9;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
-
-        /* Install Button */
         .btn-install {
-            width: 100%;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            text-decoration: none;
-            padding: 16px;
-            border-radius: 18px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: 0.3s;
-            box-shadow: 0 10px 25px rgba(46, 204, 113, 0.3);
-            border: none;
-            cursor: pointer;
+            width: 100%; background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white; text-decoration: none; padding: 16px; border-radius: 15px;
+            font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px;
+            box-shadow: 0 8px 20px rgba(46, 204, 113, 0.2);
         }
 
-        .btn-install:hover {
-            box-shadow: 0 15px 35px rgba(46, 204, 113, 0.4);
-            transform: scale(1.02);
+        /* --- Info Grid --- */
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 50px; }
+        .info-card { background: #fff; padding: 25px; border-radius: 20px; border: 1px solid #f1f5f9; }
+        .info-card h3 { margin-bottom: 15px; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; }
+
+        .contact-list { display: grid; gap: 10px; }
+        .contact-box {
+            display: flex; align-items: center; gap: 12px; padding: 12px;
+            background: #f8fafc; border-radius: 12px; text-decoration: none; color: var(--text-main);
+            font-size: 0.9rem; transition: 0.2s;
         }
+        .contact-box:hover { background: #f1f5f9; transform: translateY(-2px); }
+        .contact-box i { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; border-radius: 8px; color: #fff; }
+        
+        .bg-fb { background: #1877F2; } .bg-tt { background: #000; } .bg-ph { background: #2ecc71; } .bg-em { background: #ea4335; }
 
-        /* Info Sections */
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 60px;
+        /* --- Full Screen Image Viewer --- */
+        #imgViewer {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); z-index: 9999; align-items: center; justify-content: center;
         }
+        #imgViewer img { max-width: 95%; max-height: 90%; border-radius: 8px; box-shadow: 0 0 20px rgba(255,255,255,0.1); }
+        .close-viewer { position: absolute; top: 20px; right: 25px; color: #fff; font-size: 35px; cursor: pointer; }
 
-        .info-card {
-            background: #fff;
-            padding: 25px;
-            border-radius: 20px;
-            border: 1px solid #f1f5f9;
+        /* --- Marketing Modal Content --- */
+        .mkt-title { color: var(--primary); margin-bottom: 15px; line-height: 1.3; }
+        .mkt-box { background: #f8fafc; padding: 15px; border-radius: 12px; margin-bottom: 15px; }
+        .mkt-item { display: flex; gap: 10px; margin-bottom: 10px; }
+        .mkt-item i { color: var(--primary); margin-top: 5px; }
+        .mkt-item b { display: block; color: #1e293b; }
+        .mkt-item span { font-size: 0.85rem; color: #64748b; }
+
+        /* Modals */
+        .modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); z-index: 5000; padding: 20px; overflow-y: auto;
         }
-
-        .info-card h3 {
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #0f172a;
+        .modal-content {
+            background: #fff; max-width: 500px; margin: 20px auto; border-radius: 24px;
+            padding: 25px; position: relative; animation: zoomIn 0.3s;
         }
+        @keyframes zoomIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .close-modal { position: absolute; right: 20px; top: 15px; cursor: pointer; font-size: 28px; color: #cbd5e1; }
 
-        .info-card h3 i { color: var(--accent); }
-
-        .action-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .action-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px;
-            background: #f8fafc;
-            border-radius: 12px;
-            text-decoration: none;
-            color: var(--text-main);
-            font-weight: 500;
-            transition: 0.2s;
-        }
-
-        .action-item:hover {
-            background: #f1f5f9;
-            transform: translateX(5px);
-        }
-
-        /* Floating Elements */
         .messenger-fab {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 60px;
-            height: 60px;
-            background: #0084ff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            box-shadow: 0 10px 30px rgba(0,132,255,0.4);
-            text-decoration: none;
-            z-index: 1001;
-            transition: 0.3s;
-        }
-
-        .messenger-fab:hover { transform: scale(1.1) rotate(10deg); }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 40px 0 100px 0; /* Extra padding for sticky ad */
-            color: var(--text-muted);
-            border-top: 1px solid #e2e8f0;
+            position: fixed; bottom: 80px; right: 20px; width: 55px; height: 55px;
+            background: #0084ff; border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; color: white; font-size: 24px; z-index: 1001;
+            box-shadow: 0 8px 25px rgba(0,132,255,0.3);
         }
 
         .ad-banner-footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: #fff;
-            z-index: 2000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-top: 1px solid #ddd;
-            padding: 5px 0;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            position: fixed; bottom: 0; left: 0; width: 100%; background: #fff;
+            z-index: 2000; display: flex; justify-content: center; padding: 5px 0; border-top: 1px solid #ddd;
         }
 
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.6);
-            backdrop-filter: blur(5px);
-            z-index: 2000;
-            padding: 20px;
-            overflow-y: auto;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .modal-content {
-            background: #fff;
-            max-width: 500px;
-            margin: 50px auto;
-            border-radius: 24px;
-            padding: 30px;
-            position: relative;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 24px;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .close-modal:hover { color: var(--accent); }
-
-        .modal-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: var(--text-main);
-            border-bottom: 2px solid #f1f5f9;
-            padding-bottom: 10px;
-        }
-
-        .modal-body {
-            font-size: 0.95rem;
-            color: #475569;
-            line-height: 1.8;
-        }
-
-        .step-item {
-            margin-bottom: 15px;
-            padding-left: 15px;
-            border-left: 3px solid var(--primary);
-        }
-
+        footer { text-align: center; padding: 30px 0 110px 0; color: var(--text-muted); font-size: 0.8rem; }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="header-banner"></div>
+    <header id="mainHeader">
+        <div class="header-banner-container" id="bannerCont">
+            <div class="header-banner"></div>
+        </div>
         <nav>
-            <div class="container nav-content">
+            <div class="nav-content">
                 <a href="#" class="logo">
                     <img src="https://i.postimg.cc/mrKY1fwZ/1024x1024.png" alt="Logo">
                     <span>Y Apps Store</span>
                 </a>
-                <div class="nav-links">
-                    <a href="#"><i class="fas fa-home"></i> Home</a>
-                    <a href="https://youtu.be/1rMyLT-PezI" target="_blank"><i class="fab fa-youtube"></i> Guide</a>
-                    <a href="https://www.facebook.com/share/1HGhQ4hVEf/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
+                <div style="display: flex; gap: 12px;">
+                    <a href="https://www.facebook.com/dailywage112" target="_blank" style="color:#1877F2; font-size:1.1rem;"><i class="fab fa-facebook"></i></a>
+                    <a href="https://tiktok.com/@dailywageapp" target="_blank" style="color:#000; font-size:1.1rem;"><i class="fab fa-tiktok"></i></a>
                 </div>
             </div>
         </nav>
@@ -441,61 +197,105 @@
         <div class="search-wrapper">
             <div class="search-container">
                 <i class="fas fa-search"></i>
-                <input type="text" class="search-box" placeholder="Search premium apps...">
+                <input type="text" class="search-box" id="searchApp" placeholder="Search apps...">
             </div>
         </div>
 
         <div class="app-grid">
-            <!-- Daily Wage App Card -->
             <div class="app-card">
-                <img src="https://i.postimg.cc/mrKY1fwZ/1024x1024.png" class="app-icon" alt="Daily Wage Icon">
-                <h2 class="app-title">Daily Wage App</h2>
-                <p class="app-desc">Track your daily income and expenses with ease. The ultimate financial companion.</p>
+                <img src="https://i.postimg.cc/mrKY1fwZ/1024x1024.png" width="60" style="margin-bottom:10px">
+                <h2>Daily Wage App</h2>
+                <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:15px;">🚀 Control Your Money. Boost Your Life.</p>
                 
-                <div class="screenshot-container">
-                    <img src="https://i.postimg.cc/FKWT5xbJ/Screenshot_2026_04_13_12_35_05_104_com_daily_wage.jpg" alt="Screen 1">
-                    <img src="https://i.postimg.cc/Hr3rFvvh/Screenshot-2026-02-09-23-14-10-890-com_daily_wage.jpg" alt="Screen 2">
-                    <img src="https://i.postimg.cc/YSndKxNj/Screenshot_2026_04_13_12_35_22_953_com_daily_wage.jpg" alt="Screen 3">
-                    <img src="https://i.postimg.cc/d1h4qTn2/Screenshot_2026_04_13_12_36_09_428_com_daily_wage.jpg" alt="Screen 4">
-                    <img src="https://i.postimg.cc/qRNjkCQR/Screenshot_2026_04_13_12_36_03_495_com_daily_wage.jpg" alt="Screen 5">
+                <div class="slideshow-wrapper" onclick="openFullImg()">
+                    <div class="slides" id="appSlides">
+                        <div class="slide"><img src="https://i.postimg.cc/FKWT5xbJ/Screenshot_2026_04_13_12_35_05_104_com_daily_wage.jpg" class="ss-img"></div>
+                        <div class="slide"><img src="https://i.postimg.cc/Hr3rFvvh/Screenshot-2026-02-09-23-14-10-890-com_daily_wage.jpg" class="ss-img"></div>
+                        <div class="slide"><img src="https://i.postimg.cc/YSndKxNj/Screenshot_2026_04_13_12_35_22_953_com_daily_wage.jpg" class="ss-img"></div>
+                        <div class="slide"><img src="https://i.postimg.cc/d1h4qTn2/Screenshot_2026_04_13_12_36_09_428_com_daily_wage.jpg" class="ss-img"></div>
+                        <div class="slide"><img src="https://i.postimg.cc/qRNjkCQR/Screenshot_2026_04_13_12_36_03_495_com_daily_wage.jpg" class="ss-img"></div>
+                    </div>
+                </div>
+                <div class="dots-container" id="dotControl">
+                    <div class="dot active" onclick="jumpToSlide(0)"></div>
+                    <div class="dot" onclick="jumpToSlide(1)"></div>
+                    <div class="dot" onclick="jumpToSlide(2)"></div>
+                    <div class="dot" onclick="jumpToSlide(3)"></div>
+                    <div class="dot" onclick="jumpToSlide(4)"></div>
                 </div>
                 
+                <a href="javascript:void(0)" class="btn-about" onclick="openModal('mktModal')">
+                    DailyWage ဆိုတာဘာလဲ? (ဖတ်ရန်)
+                </a>
+
                 <a href="https://github.com/daily-Y-App/Apk-download/releases/download/V6/daily.wagev1.1.2.apk" class="btn-install">
-                    <i class="fas fa-download"></i> Install Now
+                    <i class="fas fa-download"></i> Install & Take Control
                 </a>
             </div>
         </div>
 
         <div class="info-grid">
             <div class="info-card">
-                <h3><i class="fas fa-info-circle"></i> About App</h3>
-                <div class="action-list">
-                    <a href="javascript:void(0)" class="action-item" onclick="openModal('aboutModal')">
-                        <span>DailyWage ဆိုတာဘာလဲ?</span>
-                        <i class="fas fa-chevron-right"></i>
+                <h3><i class="fas fa-phone-alt"></i> Contact & Support</h3>
+                <div class="contact-list">
+                    <a href="https://www.facebook.com/dailywage112" class="contact-box" target="_blank">
+                        <i class="fab fa-facebook bg-fb"></i> <span>Facebook Page</span>
                     </a>
-                    <a href="javascript:void(0)" class="action-item" onclick="openModal('guideModal')">
-                        <span>အသုံးပြုနည်းလမ်းညွှန်</span>
-                        <i class="fas fa-chevron-right"></i>
+                    <a href="https://tiktok.com/@dailywageapp" class="contact-box" target="_blank">
+                        <i class="fab fa-tiktok bg-tt"></i> <span>TikTok Channel</span>
+                    </a>
+                    <a href="tel:+660618201594" class="contact-box">
+                        <i class="fas fa-phone bg-ph"></i> <span>061-820-1594</span>
+                    </a>
+                    <a href="mailto:dailywage172@gmail.com" class="contact-box">
+                        <i class="fas fa-envelope bg-em"></i> <span>Email Us</span>
                     </a>
                 </div>
             </div>
-
+            
             <div class="info-card">
-                <h3><i class="fas fa-share-alt"></i> Connect With Us</h3>
-                <div class="action-list">
-                    <a href="https://www.facebook.com/share/1HGhQ4hVEf/" class="action-item" target="_blank">
-                        <span>Facebook Page</span>
-                        <i class="fab fa-facebook" style="color: #1877F2;"></i>
-                    </a>
-                    <a href="https://www.tiktok.com/@dailywageapp" class="action-item" target="_blank">
-                        <span>TikTok Channel</span>
-                        <i class="fab fa-tiktok" style="color: #000;"></i>
-                    </a>
-                </div>
+                <h3><i class="fas fa-play-circle"></i> Video Guide</h3>
+                <a href="https://youtu.be/1rMyLT-PezI" target="_blank" style="text-decoration:none;">
+                    <div style="background:#f8fafc; border-radius:12px; padding:15px; display:flex; align-items:center; gap:12px;">
+                        <i class="fab fa-youtube" style="color:#ff0000; font-size:2rem;"></i>
+                        <div>
+                            <b style="display:block; font-size:0.9rem; color:#1e293b;">How to use DailyWage</b>
+                            <span style="font-size:0.75rem; color:#64748b;">Watch Tutorial on YouTube</span>
+                        </div>
+                    </div>
+                </a>
             </div>
         </div>
     </main>
+
+    <!-- Marketing Modal -->
+    <div id="mktModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('mktModal')">&times;</span>
+            <h2 class="mkt-title">Control Your Money,<br>Change Your Future!</h2>
+            <div class="mkt-box">
+                <div class="mkt-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <div><b>100% Privacy</b><span>သင့်ဒေတာများကို သင့်ဖုန်းထဲမှာပဲ လုံခြုံစွာသိမ်းဆည်းပေးသည်။</span></div>
+                </div>
+                <div class="mkt-item">
+                    <i class="fas fa-chart-pie"></i>
+                    <div><b>Smart Tracking</b><span>ဝင်ငွေထွက်ငွေများကို ဇယားများဖြင့် ရှင်းလင်းစွာပြသပေးသည်။</span></div>
+                </div>
+                <div class="mkt-item">
+                    <i class="fas fa-magic"></i>
+                    <div><b>Easy to Use</b><span>ရိုးရှင်းလှပသော UI ကြောင့် မည်သူမဆို အလွယ်တကူသုံးနိုင်သည်။</span></div>
+                </div>
+            </div>
+            <button class="btn-install" onclick="closeModal('mktModal')">အသုံးပြုကြည့်မည်</button>
+        </div>
+    </div>
+
+    <!-- Full Image Viewer -->
+    <div id="imgViewer" onclick="closeFullImg()">
+        <span class="close-viewer">&times;</span>
+        <img id="fullImg" src="">
+    </div>
 
     <a href="https://m.me/1HiGd2hafR" class="messenger-fab" target="_blank">
         <i class="fab fa-facebook-messenger"></i>
@@ -516,85 +316,61 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2026 Y Apps Store. All Rights Reserved.</p>
+            <p>&copy; 2026 Y Apps Store. Empowering your financial life.</p>
         </div>
     </footer>
 
-    <!-- About Modal -->
-    <div id="aboutModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('aboutModal')">&times;</span>
-            <h2 class="modal-title">DailyWage ဆိုတာဘာလဲ?</h2>
-            <div class="modal-body">
-                <p>DailyWage App သည် သင့်၏ နေ့စဉ်ဝင်ငွေနှင့် ထွက်ငွေများကို စနစ်တကျ မှတ်တမ်းတင်နိုင်ရန် ဖန်တီးထားသော Premium App တစ်ခုဖြစ်ပါသည်။</p>
-                <br>
-                <div class="step-item">
-                    <strong>လုံခြုံမှု:</strong> သင့်ဒေတာများကို စိတ်ချစွာ သိမ်းဆည်းထားနိုင်ပါသည်။
-                </div>
-                <div class="step-item">
-                    <strong>လွယ်ကူမှု:</strong> ရိုးရှင်းသပ်ရပ်သော UI ကြောင့် မည်သူမဆို အလွယ်တကူ အသုံးပြုနိုင်ပါသည်။
-                </div>
-                <div class="step-item">
-                    <strong>အစီရင်ခံစာ:</strong> လစဉ်၊ နှစ်စဉ် ဝင်ငွေထွက်ငွေ ဇယားများကို ကြည့်ရှုနိုင်ပါသည်။
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Guide Modal -->
-    <div id="guideModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal('guideModal')">&times;</span>
-            <h2 class="modal-title">အသုံးပြုနည်းလမ်းညွှန်</h2>
-            <div class="modal-body">
-                <div class="step-item">
-                    <strong>အဆင့် ၁:</strong> Install Now ခလုတ်ကိုနှိပ်ပြီး APK ဖိုင်ကို Download ရယူပါ။
-                </div>
-                <div class="step-item">
-                    <strong>အဆင့် ၂:</strong> Download ရရှိလာသော APK ကို Install လုပ်ပါ။ (Unknown Sources ခွင့်ပြုပေးရန် လိုအပ်ပါသည်)
-                </div>
-                <div class="step-item">
-                    <strong>အဆင့် ၃:</strong> App ကိုဖွင့်ပြီး သင့်၏ အကောင့်ကို စတင်တည်ဆောက်ပါ။
-                </div>
-                <div class="step-item">
-                    <strong>အဆင့် ၄:</strong> နေ့စဉ် ဝင်ငွေ/ထွက်ငွေများကို စတင်မှတ်တမ်းတင်နိုင်ပါပြီ။
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script>
-        // Modal Logic
-        function openModal(id) {
-            document.getElementById(id).style.display = 'block';
-            document.body.style.overflow = 'hidden'; // Prevent scroll
+        // --- Slideshow Logic ---
+        let currentIdx = 0;
+        const slides = document.getElementById('appSlides');
+        const dots = document.querySelectorAll('.dot');
+        const totalSlides = dots.length;
+
+        function updateSlides() {
+            slides.style.transform = `translateX(-${currentIdx * 100}%)`;
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentIdx);
+            });
         }
 
+        function jumpToSlide(idx) {
+            currentIdx = idx;
+            updateSlides();
+        }
+
+        // Auto play
+        setInterval(() => {
+            currentIdx = (currentIdx + 1) % totalSlides;
+            updateSlides();
+        }, 3500);
+
+        // --- Image Viewer ---
+        function openFullImg() {
+            const currentImgSrc = document.querySelectorAll('.ss-img')[currentIdx].src;
+            document.getElementById('fullImg').src = currentImgSrc;
+            document.getElementById('imgViewer').style.display = 'flex';
+        }
+        function closeFullImg() {
+            document.getElementById('imgViewer').style.display = 'none';
+        }
+
+        // --- Modal ---
+        function openModal(id) {
+            document.getElementById(id).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
         function closeModal(id) {
             document.getElementById(id).style.display = 'none';
             document.body.style.overflow = 'auto';
         }
 
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            if (event.target.className === 'modal') {
-                event.target.style.display = 'none';
-                document.body.style.overflow = 'auto';
-            }
-        }
-
-        // Basic search filter logic
-        document.querySelector('.search-box').addEventListener('input', function(e) {
+        // --- Search Filter ---
+        document.getElementById('searchApp').addEventListener('input', function(e) {
             const term = e.target.value.toLowerCase();
-            const cards = document.querySelectorAll('.app-card');
-            cards.forEach(card => {
-                const title = card.querySelector('.app-title').innerText.toLowerCase();
-                if(title.includes(term)) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+            const card = document.querySelector('.app-card');
+            const title = card.querySelector('h2').innerText.toLowerCase();
+            card.style.display = title.includes(term) ? 'block' : 'none';
         });
     </script>
 </body>
