@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Y Apps Store - Premium Services</title>
+    <title>Y Apps Store - Daily Wage App Download</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -108,7 +108,10 @@
             color: white; text-decoration: none; padding: 16px; border-radius: 15px;
             font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px;
             box-shadow: 0 8px 20px rgba(46, 204, 113, 0.2);
+            border: none; cursor: pointer;
         }
+
+        .btn-install:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(46, 204, 113, 0.3); }
 
         .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 50px; }
         .info-card { background: #fff; padding: 25px; border-radius: 20px; border: 1px solid #f1f5f9; }
@@ -239,6 +242,49 @@
         .stat-value { font-size: 1.8rem; font-weight: bold; color: var(--primary); }
         .stat-label { font-size: 0.8rem; color: #64748b; margin-top: 5px; }
 
+        .reward-claim-section {
+            background: #fff3cd; padding: 15px; border-radius: 12px;
+            border: 1px solid #ffc107; margin: 15px 0;
+        }
+
+        .reward-claim-section h4 { color: #856404; margin-bottom: 10px; }
+
+        .reward-list {
+            background: #fff; padding: 15px; border-radius: 12px;
+            margin: 15px 0; max-height: 300px; overflow-y: auto;
+        }
+
+        .reward-item {
+            padding: 10px; border-bottom: 1px solid #e2e8f0;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .reward-item:last-child { border-bottom: none; }
+
+        .reward-item-name { font-weight: 600; color: #1e293b; }
+        .reward-item-amount { color: var(--primary); font-weight: bold; }
+
+        .claim-btn {
+            background: var(--primary); color: white; border: none;
+            padding: 8px 16px; border-radius: 8px; cursor: pointer;
+            font-size: 0.8rem; font-weight: 600;
+        }
+
+        .claim-btn:hover { background: var(--primary-dark); }
+        .claim-btn:disabled { background: #cbd5e1; cursor: not-allowed; }
+
+        .notification {
+            position: fixed; top: 20px; right: 20px; background: #fff;
+            padding: 15px 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 10000; display: none; animation: slideIn 0.3s;
+        }
+
+        .notification.show { display: block; }
+        .notification.success { border-left: 4px solid #2ecc71; }
+        .notification.error { border-left: 4px solid #e74c3c; }
+
+        @keyframes slideIn { from { transform: translateX(400px); } to { transform: translateX(0); } }
+
         @media (max-width: 768px) {
             .share-buttons { grid-template-columns: 1fr; }
             .reward-stats { grid-template-columns: 1fr; }
@@ -300,15 +346,15 @@
                     DailyWage ဆိုတာဘာလဲ? (ဖတ်ရန်)
                 </a>
 
-                <a href="https://github.com/daily-Y-App/Apk-download/releases/download/V6/daily.wagev1.1.2.apk" class="btn-install">
-                    <i class="fas fa-download"></i> Install & Take Control
-                </a>
+                <button onclick="downloadApp()" class="btn-install">
+                    <i class="fas fa-download"></i> Download Daily Wage App
+                </button>
 
                 <!-- Reward Section -->
                 <div class="reward-section">
-                    <h3>🎁 Earn Rewards!</h3>
+                    <h3>🎁 Share & Earn Rewards!</h3>
                     <p style="font-size: 0.9rem; color: #333; margin-bottom: 15px;">
-                        Share your referral link and earn <strong>฿0.5</strong> for each friend who installs!
+                        Share this link on social media and earn rewards!
                     </p>
                     
                     <div class="referral-box">
@@ -325,11 +371,24 @@
                     <div class="reward-stats">
                         <div class="stat-card">
                             <div class="stat-value" id="referralCount">0</div>
-                            <div class="stat-label">Referrals</div>
+                            <div class="stat-label">Shares</div>
                         </div>
                         <div class="stat-card">
                             <div class="stat-value" id="earnedRewards">฿0</div>
                             <div class="stat-label">Earned</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reward Claim Section -->
+                <div class="reward-claim-section">
+                    <h4>💰 Available Rewards</h4>
+                    <p style="font-size: 0.85rem; color: #856404; margin-bottom: 10px;">
+                        Share your link on Facebook/TikTok/WhatsApp and claim rewards!
+                    </p>
+                    <div class="reward-list" id="rewardList">
+                        <div style="text-align: center; padding: 20px; color: #999;">
+                            No rewards yet. Share your link to earn!
                         </div>
                     </div>
                 </div>
@@ -343,14 +402,14 @@
                         <h4><i class="fab fa-facebook" style="color: #1877F2;"></i> Facebook Post</h4>
                         <p>🚀 DailyWage App - Control Your Money. Boost Your Life!
 
-💰 **Earn Money Daily:**
+💰 Earn Money Daily:
 ✅ ฿0.2 daily bonus (just check-in!)
 ✅ Watch ads for extra points
 ✅ Complete tasks for rewards
 ✅ Withdraw via PromptPay (minimum ฿10)
 
-🎁 **Referral Program:**
-Share your link and earn ฿0.5 for each friend who installs!
+🎁 Share & Earn Rewards:
+Share this link on Facebook and earn rewards!
 
 📱 Download Now: https://daily-y-app.github.io/Apk-download/
 
@@ -363,7 +422,7 @@ Share your link and earn ฿0.5 for each friend who installs!
 
 🎯 Start earning today! It's FREE!
 
-#DailyWage #EarnMoney #PromptPay #SmartFinance #MakeMoneyOnline</p>
+#DailyWage #EarnMoney #PromptPay #SmartFinance</p>
                         <button onclick="copyPost(this)" class="copy-btn">📋 Copy Post</button>
                     </div>
 
@@ -378,11 +437,11 @@ Share your link and earn ฿0.5 for each friend who installs!
 ✅ Complete tasks: More rewards
 ✅ Withdraw: PromptPay (24/7)
 
-🎁 Refer friends: ฿0.5 per referral!
+🎁 Share & Earn Rewards!
 
 📥 Download: https://daily-y-app.github.io/Apk-download/
 
-#DailyWage #EarnMoney #PromptPay #MakeMoneyOnline #SideHustle</p>
+#DailyWage #EarnMoney #PromptPay #MakeMoneyOnline</p>
                         <button onclick="copyPost(this)" class="copy-btn">📋 Copy Post</button>
                     </div>
 
@@ -398,11 +457,11 @@ Share your link and earn ฿0.5 for each friend who installs!
 ✅ Complete tasks
 ✅ Withdraw via PromptPay
 
-🎁 Refer friends: ฿0.5 per referral!
+🎁 Share & Earn Rewards!
 
 📥 Download: https://daily-y-app.github.io/Apk-download/
 
-#DailyWage #EarnMoney #PromptPay #SmartFinance #MakeMoneyOnline #SideHustle #PassiveIncome</p>
+#DailyWage #EarnMoney #PromptPay #SmartFinance</p>
                         <button onclick="copyPost(this)" class="copy-btn">📋 Copy Post</button>
                     </div>
 
@@ -413,59 +472,11 @@ Share your link and earn ฿0.5 for each friend who installs!
 
 💰 Earn ฿0.2 daily + withdraw via PromptPay!
 
-🎁 Refer friends and earn ฿0.5 each!
+🎁 Share & Earn Rewards!
 
 📥 Download: https://daily-y-app.github.io/Apk-download/
 
 #DailyWage #EarnMoney #PromptPay</p>
-                        <button onclick="copyPost(this)" class="copy-btn">📋 Copy Post</button>
-                    </div>
-
-                    <!-- Email Campaign -->
-                    <div class="social-post">
-                        <h4><i class="fas fa-envelope" style="color: #ea4335;"></i> Email Campaign</h4>
-                        <p>Subject: Earn ฿0.2 Daily with DailyWage App - Join Now! 🚀
-
-Hi Friend,
-
-I'm excited to share DailyWage App with you!
-
-🚀 **What is DailyWage?**
-A smart app that helps you earn money daily and manage your finances better.
-
-💰 **How to Earn:**
-• Daily check-in: ฿0.2 (takes 1 second!)
-• Watch ads: Extra points
-• Complete tasks: More rewards
-• Withdraw: PromptPay (minimum ฿10)
-
-🎁 **Referral Bonus:**
-When you install via my link, we both get rewards!
-
-📥 Download Now: https://daily-y-app.github.io/Apk-download/
-
-✅ No hidden fees
-✅ Secure PromptPay payment
-✅ Real-time withdrawal
-✅ 100% Free
-
-Start earning today!</p>
-                        <button onclick="copyPost(this)" class="copy-btn">📋 Copy Post</button>
-                    </div>
-
-                    <!-- SMS Campaign -->
-                    <div class="social-post">
-                        <h4><i class="fas fa-sms" style="color: #2ecc71;"></i> SMS Campaign</h4>
-                        <p>🚀 DailyWage App - Earn ฿0.2 daily!
-
-✅ Daily check-in bonus
-✅ Watch ads for extra points
-✅ Withdraw via PromptPay
-🎁 Refer friends: ฿0.5 each
-
-Download: https://daily-y-app.github.io/Apk-download/
-
-#DailyWage #EarnMoney</p>
                         <button onclick="copyPost(this)" class="copy-btn">📋 Copy Post</button>
                     </div>
                 </div>
@@ -547,6 +558,8 @@ Download: https://daily-y-app.github.io/Apk-download/
 
     <footer><p>&copy; 2026 Y Apps Store. All Rights Reserved.</p></footer>
 
+    <div id="notification" class="notification"></div>
+
     <script>
         /* --- Header Scroll Effect --- */
         window.onscroll = function() {
@@ -592,6 +605,21 @@ Download: https://daily-y-app.github.io/Apk-download/
         function openModal(id) { document.getElementById(id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
         function closeModal(id) { document.getElementById(id).style.display = 'none'; document.body.style.overflow = 'auto'; }
 
+        /* --- Notification System --- */
+        function showNotification(message, type = 'success') {
+            const notif = document.getElementById('notification');
+            notif.textContent = message;
+            notif.className = `notification ${type} show`;
+            setTimeout(() => { notif.classList.remove('show'); }, 3000);
+        }
+
+        /* --- Download App --- */
+        function downloadApp() {
+            const apkUrl = 'https://github.com/daily-Y-App/Apk-download/releases/download/V6/daily.wagev1.1.2.apk';
+            window.location.href = apkUrl;
+            recordShare('direct_download');
+        }
+
         /* --- Referral System --- */
         let deviceId = localStorage.getItem('deviceId');
         if (!deviceId) {
@@ -607,7 +635,7 @@ Download: https://daily-y-app.github.io/Apk-download/
             const link = document.getElementById('referralLink');
             link.select();
             document.execCommand('copy');
-            alert('✅ Referral link copied to clipboard!');
+            showNotification('✅ Referral link copied!', 'success');
         }
 
         function copyPost(button) {
@@ -623,23 +651,81 @@ Download: https://daily-y-app.github.io/Apk-download/
         }
 
         function shareToFacebook() {
-            const text = '🚀 DailyWage App - Control Your Money. Boost Your Life!\n\nEarn ฿0.5 for each friend who installs via my link:\n' + referralLink + '\n\n💰 Get ฿0.2 daily bonus + withdraw via PromptPay!';
+            const text = '🚀 DailyWage App - Control Your Money. Boost Your Life!\n\nShare this link and earn rewards!\n' + referralLink + '\n\n💰 Get ฿0.2 daily bonus + withdraw via PromptPay!';
             const url = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(referralLink) + '&quote=' + encodeURIComponent(text);
             window.open(url, '_blank', 'width=600,height=400');
+            recordShare('facebook');
         }
 
         function shareToTikTok() {
-            const text = 'DailyWage App - Control Your Money. Boost Your Life!\n\nEarn ฿0.5 for each friend:\n' + referralLink;
+            const text = 'DailyWage App - Control Your Money. Boost Your Life!\n\nShare this link and earn rewards!\n' + referralLink;
             alert('Share on TikTok:\n\n' + text);
+            recordShare('tiktok');
         }
 
         function shareToWhatsApp() {
-            const text = '🚀 DailyWage App - Control Your Money. Boost Your Life!\n\nEarn ฿0.5 for each friend who installs via my link:\n' + referralLink + '\n\n💰 Get ฿0.2 daily bonus + withdraw via PromptPay!';
+            const text = '🚀 DailyWage App - Control Your Money. Boost Your Life!\n\nShare this link and earn rewards!\n' + referralLink + '\n\n💰 Get ฿0.2 daily bonus + withdraw via PromptPay!';
             const url = 'https://wa.me/?text=' + encodeURIComponent(text);
             window.open(url, '_blank');
+            recordShare('whatsapp');
         }
 
-        // Check for referral parameter
+        /* --- Record Shares & Generate Rewards --- */
+        function recordShare(platform) {
+            let shares = JSON.parse(localStorage.getItem('shares_' + deviceId) || '[]');
+            shares.push({
+                platform: platform,
+                timestamp: new Date().toISOString(),
+                reward: 10 // ฿10 per share (can be adjusted)
+            });
+            localStorage.setItem('shares_' + deviceId, JSON.stringify(shares));
+            updateRewardStats();
+            updateRewardList();
+        }
+
+        /* --- Update Reward Stats --- */
+        function updateRewardStats() {
+            const shares = JSON.parse(localStorage.getItem('shares_' + deviceId) || '[]');
+            const totalReward = shares.length * 10; // ฿10 per share
+            document.getElementById('referralCount').textContent = shares.length;
+            document.getElementById('earnedRewards').textContent = '฿' + totalReward;
+        }
+
+        /* --- Update Reward List --- */
+        function updateRewardList() {
+            const shares = JSON.parse(localStorage.getItem('shares_' + deviceId) || '[]');
+            const rewardList = document.getElementById('rewardList');
+            
+            if (shares.length === 0) {
+                rewardList.innerHTML = '<div style="text-align: center; padding: 20px; color: #999;">No rewards yet. Share your link to earn!</div>';
+                return;
+            }
+
+            let html = '';
+            shares.forEach((share, index) => {
+                const date = new Date(share.timestamp).toLocaleString();
+                const platformIcon = {
+                    'facebook': '<i class="fab fa-facebook" style="color: #1877F2;"></i>',
+                    'tiktok': '<i class="fab fa-tiktok"></i>',
+                    'whatsapp': '<i class="fab fa-whatsapp" style="color: #25D366;"></i>',
+                    'direct_download': '<i class="fas fa-download"></i>'
+                };
+                
+                html += `
+                    <div class="reward-item">
+                        <div>
+                            <div class="reward-item-name">${platformIcon[share.platform] || ''} ${share.platform.charAt(0).toUpperCase() + share.platform.slice(1)}</div>
+                            <div style="font-size: 0.8rem; color: #999;">${date}</div>
+                        </div>
+                        <div class="reward-item-amount">฿${share.reward}</div>
+                    </div>
+                `;
+            });
+            
+            rewardList.innerHTML = html;
+        }
+
+        /* --- Check for referral parameter --- */
         const urlParams = new URLSearchParams(window.location.search);
         const referrerCode = urlParams.get('ref');
         if (referrerCode) {
@@ -647,17 +733,11 @@ Download: https://daily-y-app.github.io/Apk-download/
             console.log('✅ Referral tracked from:', referrerCode);
         }
 
-        // Load referral stats
-        function loadReferralStats() {
-            const referralData = localStorage.getItem('referralStats_' + deviceId);
-            if (referralData) {
-                const stats = JSON.parse(referralData);
-                document.getElementById('referralCount').textContent = stats.count || 0;
-                document.getElementById('earnedRewards').textContent = '฿' + ((stats.count || 0) * 0.5).toFixed(1);
-            }
-        }
-
-        window.addEventListener('load', loadReferralStats);
+        /* --- Initialize on Load --- */
+        window.addEventListener('load', () => {
+            updateRewardStats();
+            updateRewardList();
+        });
     </script>
 </body>
 </html>
