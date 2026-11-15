@@ -86,9 +86,11 @@
 
         .slideshow-wrapper {
             position: relative; width: 100%; max-width: 240px; margin: 15px auto;
-            overflow: hidden; border-radius: 16px; border: 3px solid #f1f5f9; cursor: zoom-in;
+            overflow: hidden; border-radius: 16px; border: 3px solid #f1f5f9; cursor: grab;
+            touch-action: pan-y; user-select: none;
         }
-        .slides { display: flex; transition: transform 0.5s ease-in-out; }
+        .slideshow-wrapper:active { cursor: grabbing; }
+        .slides { display: flex; transition: transform 0.5s ease-in-out; will-change: transform; }
         .slide { min-width: 100%; }
         .slide img { width: 100%; height: auto; display: block; }
 
@@ -238,7 +240,7 @@
                 <h2>Daily Wage App</h2>
                 <p style="font-size:0.8rem; color:var(--text-muted); margin-bottom:15px;">🚀 Control Your Money. Boost Your Life.</p>
                 
-                <div class="slideshow-wrapper" onclick="openFullImg()">
+                <div class="slideshow-wrapper" id="slideshowWrapper" onclick="handleSlideshowClick(event)">
                     <div class="slides" id="appSlides">
                         <div class="slide"><img src="https://i.postimg.cc/FKWT5xbJ/Screenshot_2026_04_13_12_35_05_104_com_daily_wage.jpg" class="ss-img"></div>
                         <div class="slide"><img src="https://i.postimg.cc/Hr3rFvvh/Screenshot-2026-02-09-23-14-10-890-com_daily_wage.jpg" class="ss-img"></div>
@@ -377,20 +379,89 @@
         /* --- Slideshow Logic --- */
         let currentSlide = 0;
         const slides = document.getElementById('appSlides');
+        const slideshowWrapper = document.getElementById('slideshowWrapper');
         const dots = document.querySelectorAll('.dot');
         const totalSlides = dots.length;
+        const swipeThreshold = 45;
+        let autoSlideTimer;
+        let pointerStartX = 0;
+        let pointerStartY = 0;
+        let pointerCurrentX = 0;
+        let isDragging = false;
+        let suppressNextClick = false;
 
-        function updateSlideshow() {
+        function updateSlideshow(animate = true) {
+            slides.style.transition = animate ? 'transform 0.5s ease-in-out' : 'none';
             slides.style.transform = `translateX(-${currentSlide * 100}%)`;
             dots.forEach((dot, index) => dot.classList.toggle('active', index === currentSlide));
         }
 
-        function jumpToSlide(index) { currentSlide = index; updateSlideshow(); }
-
-        setInterval(() => {
-            currentSlide = (currentSlide + 1) % totalSlides;
+        function jumpToSlide(index) {
+            currentSlide = Math.max(0, Math.min(index, totalSlides - 1));
             updateSlideshow();
-        }, 3500);
+            restartAutoSlide();
+        }
+
+        function restartAutoSlide() {
+            clearInterval(autoSlideTimer);
+            autoSlideTimer = setInterval(() => {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateSlideshow();
+            }, 3500);
+        }
+
+        function handlePointerDown(event) {
+            pointerStartX = event.clientX;
+            pointerStartY = event.clientY;
+            pointerCurrentX = event.clientX;
+            isDragging = false;
+            slides.style.transition = 'none';
+            slideshowWrapper.setPointerCapture(event.pointerId);
+        }
+
+        function handlePointerMove(event) {
+            if (!slideshowWrapper.hasPointerCapture(event.pointerId)) return;
+            pointerCurrentX = event.clientX;
+            const deltaX = pointerCurrentX - pointerStartX;
+            const deltaY = event.clientY - pointerStartY;
+            if (!isDragging && Math.abs(deltaX) > 8 && Math.abs(deltaX) > Math.abs(deltaY)) {
+                isDragging = true;
+            }
+            if (!isDragging) return;
+            const dragPercent = (deltaX / slideshowWrapper.clientWidth) * 100;
+            slides.style.transform = `translateX(calc(-${currentSlide * 100}% + ${dragPercent}px))`;
+        }
+
+        function handlePointerUp(event) {
+            if (!slideshowWrapper.hasPointerCapture(event.pointerId)) return;
+            slideshowWrapper.releasePointerCapture(event.pointerId);
+            const deltaX = pointerCurrentX - pointerStartX;
+            if (isDragging && Math.abs(deltaX) >= swipeThreshold) {
+                currentSlide = deltaX < 0
+                    ? (currentSlide + 1) % totalSlides
+                    : (currentSlide - 1 + totalSlides) % totalSlides;
+                suppressNextClick = true;
+            }
+            updateSlideshow();
+            restartAutoSlide();
+            isDragging = false;
+        }
+
+        function handleSlideshowClick(event) {
+            if (suppressNextClick) {
+                event.preventDefault();
+                event.stopPropagation();
+                suppressNextClick = false;
+                return;
+            }
+            openFullImg();
+        }
+
+        slideshowWrapper.addEventListener('pointerdown', handlePointerDown);
+        slideshowWrapper.addEventListener('pointermove', handlePointerMove);
+        slideshowWrapper.addEventListener('pointerup', handlePointerUp);
+        slideshowWrapper.addEventListener('pointercancel', handlePointerUp);
+        restartAutoSlide();
 
         /* --- Image Viewer --- */
         function openFullImg() {
