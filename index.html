@@ -166,9 +166,18 @@
         #imgViewer {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.95); z-index: 9999; align-items: center; justify-content: center;
+            touch-action: pan-y; user-select: none; overflow: hidden;
         }
-        #imgViewer img { max-width: 95%; max-height: 90%; border-radius: 8px; box-shadow: 0 0 20px rgba(255,255,255,0.1); }
+        #imgViewer img { max-width: 95%; max-height: 90%; border-radius: 8px; box-shadow: 0 0 20px rgba(255,255,255,0.1); touch-action: pan-y; }
         .close-viewer { position: absolute; top: 20px; right: 25px; color: #fff; font-size: 35px; cursor: pointer; }
+        .viewer-nav {
+            position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+            width: 42px; height: 42px; border: none; border-radius: 50%; cursor: pointer;
+            background: rgba(255,255,255,0.18); color: #fff; font-size: 1.1rem;
+            display: flex; align-items: center; justify-content: center; transition: 0.2s;
+        }
+        .viewer-nav:hover { background: rgba(255,255,255,0.35); }
+        .viewer-prev { left: 18px; } .viewer-next { right: 18px; }
 
         .mkt-title { color: var(--primary); margin-bottom: 15px; line-height: 1.3; }
         .mkt-box { background: #f8fafc; padding: 15px; border-radius: 12px; margin-bottom: 15px; }
@@ -321,9 +330,11 @@
         </div>
     </main>
 
-    <div id="imgViewer" onclick="closeFullImg()">
-        <span class="close-viewer">&times;</span>
+    <div id="imgViewer" onclick="handleViewerClick(event)">
+        <span class="close-viewer" onclick="closeFullImg()">&times;</span>
+        <button class="viewer-nav viewer-prev" type="button" aria-label="Previous image" onclick="changeViewerSlide(-1, event)"><i class="fas fa-chevron-left"></i></button>
         <img id="fullImg" src="">
+        <button class="viewer-nav viewer-next" type="button" aria-label="Next image" onclick="changeViewerSlide(1, event)"><i class="fas fa-chevron-right"></i></button>
     </div>
 
     <div id="mktModal" class="modal">
@@ -464,16 +475,114 @@
         restartAutoSlide();
 
         /* --- Image Viewer --- */
+        const imgViewer = document.getElementById('imgViewer');
+        const fullImg = document.getElementById('fullImg');
+        let viewerStartX = 0;
+        let viewerStartY = 0;
+        let viewerCurrentX = 0;
+        let viewerDragging = false;
+        let suppressViewerClick = false;
+
+        function updateViewerImage() {
+            fullImg.src = document.querySelectorAll('.ss-img')[currentSlide].src;
+            updateSlideshow();
+        }
+
         function openFullImg() {
-            const currentImg = document.querySelectorAll('.ss-img')[currentSlide].src;
-            document.getElementById('fullImg').src = currentImg;
-            document.getElementById('imgViewer').style.display = 'flex';
+            updateViewerImage();
+            imgViewer.style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
         function closeFullImg() {
-            document.getElementById('imgViewer').style.display = 'none';
+            imgViewer.style.display = 'none';
             document.body.style.overflow = 'auto';
         }
+
+        function changeViewerSlide(direction, event) {
+            event.stopPropagation();
+            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+            updateViewerImage();
+            restartAutoSlide();
+        }
+
+        function handleViewerPointerDown(event) {
+            if (event.target.closest('.viewer-nav, .close-viewer')) return;
+            viewerStartX = event.clientX;
+            viewerStartY = event.clientY;
+            viewerCurrentX = event.clientX;
+            viewerDragging = false;
+            imgViewer.setPointerCapture(event.pointerId);
+        }
+
+        function handleViewerPointerMove(event) {
+            if (!imgViewer.hasPointerCapture(event.pointerId)) return;
+            viewerCurrentX = event.clientX;
+            const deltaX = viewerCurrentX - viewerStartX;
+            const deltaY = event.clientY - viewerStartY;
+            if (!viewerDragging && Math.abs(deltaX) > 8 && Math.abs(deltaX) > Math.abs(deltaY)) {
+                viewerDragging = true;
+            }
+            if (viewerDragging) {
+                fullImg.style.transform = `translateX(${deltaX}px)`;
+                fullImg.style.opacity = Math.max(0.55, 1 - Math.abs(deltaX) / 500);
+            }
+        }
+
+        function handleViewerPointerUp(event) {
+            if (!imgViewer.hasPointerCapture(event.pointerId)) return;
+            imgViewer.releasePointerCapture(event.pointerId);
+            const deltaX = viewerCurrentX - viewerStartX;
+            if (viewerDragging && Math.abs(deltaX) >= swipeThreshold) {
+                currentSlide = deltaX < 0
+                    ? (currentSlide + 1) % totalSlides
+                    : (currentSlide - 1 + totalSlides) % totalSlides;
+                updateViewerImage();
+                restartAutoSlide();
+                suppressViewerClick = true;
+            }
+            fullImg.style.transition = 'transform 0.25s ease, opacity 0.25s ease';
+            fullImg.style.transform = 'translateX(0)';
+            fullImg.style.opacity = '1';
+            setTimeout(() => { fullImg.style.transition = ''; }, 250);
+            viewerDragging = false;
+        }
+
+        function handleViewerClick(event) {
+            if (suppressViewerClick) {
+                event.preventDefault();
+                event.stopPropagation();
+                suppressViewerClick = false;
+                return;
+            }
+            if (event.target === imgViewer) closeFullImg();
+        }
+
+        imgViewer.addEventListener('pointerdown', handleViewerPointerDown);
+        imgViewer.addEventListener('pointermove', handleViewerPointerMove);
+        imgViewer.addEventListener('pointerup', handleViewerPointerUp);
+        imgViewer.addEventListener('pointercancel', handleViewerPointerUp);
+
+        /* --- Double-back exit warning --- */
+        let exitArmed = false;
+        let exitWarningTimer;
+        history.pushState({ apkPage: true }, '', window.location.href);
+
+        window.addEventListener('popstate', () => {
+            if (exitArmed) {
+                exitArmed = false;
+                return;
+            }
+            if (imgViewer.style.display === 'flex') {
+                closeFullImg();
+                history.pushState({ apkPage: true }, '', window.location.href);
+                return;
+            }
+            showShareToast('ထွက်ရန် Back ခလုတ်ကို နောက်တစ်ကြိမ် ထပ်နှိပ်ပါ။');
+            clearTimeout(exitWarningTimer);
+            exitArmed = true;
+            exitWarningTimer = setTimeout(() => { exitArmed = false; }, 2200);
+            history.pushState({ apkPage: true }, '', window.location.href);
+        });
 
         /* --- Modal Logic --- */
         function openModal(id) { document.getElementById(id).style.display = 'block'; document.body.style.overflow = 'hidden'; }
