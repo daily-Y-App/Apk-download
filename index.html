@@ -86,9 +86,6 @@
         .app-card.compact { max-width: 360px; }
         .app-card.compact .app-icon { width: 86px; height: 86px; object-fit: cover; border-radius: 20px; margin-bottom: 12px; box-shadow: 0 8px 18px rgba(15,23,42,0.08); }
         .app-meta { color: var(--text-muted); font-size: 0.78rem; margin: 5px 0 16px; }
-        .checksum-box { margin: 12px 0 16px; text-align: left; border: 1px solid #e2e8f0; border-radius: 12px; background: #f8fafc; }
-        .checksum-box summary { padding: 10px 12px; cursor: pointer; color: var(--primary-dark); font-size: 0.78rem; font-weight: 700; }
-        .checksum-box code { display: block; padding: 0 12px 12px; color: var(--text-muted); font-size: 0.65rem; line-height: 1.5; word-break: break-all; }
         .btn-install.secondary { background: linear-gradient(135deg, var(--primary-dark), var(--primary)); }
 
         .slideshow-wrapper {
@@ -304,11 +301,7 @@
                 <img class="app-icon" src="https://i.postimg.cc/jjKK86PF/IMG-2bb2e458-9631-41be-b1fa-fe719ae47988.png" alt="ReVanced Manager icon">
                 <h2>ReVanced Manager</h2>
                 <p class="app-meta">Version 2.6.0 · Android APK</p>
-                <details class="checksum-box">
-                    <summary><i class="fas fa-shield-halved"></i> SHA-256 checksum</summary>
-                    <code>cba4c461553ea74eb25a7b2e1842419c7f4f40adc619b10d518c114204b7e846</code>
-                </details>
-                <a class="btn-install secondary" href="https://github.com/daily-Y-App/Apk-download/releases/download/V6/revanced-manager-2.6.0.apk" target="_blank" rel="noopener noreferrer">
+                <a class="btn-install secondary" href="https://github.com/daily-Y-App/Apk-download/releases/download/V6/revanced-manager-2.6.0.apk" onclick="confirmDownload(event, this.href, 'ReVanced Manager')">
                     <i class="fas fa-download"></i> Download ReVanced Manager
                 </a>
             </div>
@@ -317,11 +310,7 @@
                 <img class="app-icon" src="https://i.postimg.cc/c1jWqGfL/IMG-dfbdad06-4226-43fa-af21-1d24403197a8.jpg" alt="microG Services icon">
                 <h2>microG Services</h2>
                 <p class="app-meta">Version 0.3.13.2.250932-hw · Android APK</p>
-                <details class="checksum-box">
-                    <summary><i class="fas fa-shield-halved"></i> SHA-256 checksum</summary>
-                    <code>5445f21438c50c947ecf1d33f4357b2a640bfd77278631c6b9e859c0c14001e1</code>
-                </details>
-                <a class="btn-install secondary" href="https://github.com/daily-Y-App/Apk-download/releases/download/V6/microG_Services_P_app.revanced.android.gms_V_v0.3.13.2.250932-hw.apk" target="_blank" rel="noopener noreferrer">
+                <a class="btn-install secondary" href="https://github.com/daily-Y-App/Apk-download/releases/download/V6/microG_Services_P_app.revanced.android.gms_V_v0.3.13.2.250932-hw.apk" onclick="confirmDownload(event, this.href, 'microG Services')">
                     <i class="fas fa-download"></i> Download microG Services
                 </a>
             </div>
@@ -347,7 +336,7 @@
                 <h3><i class="fas fa-envelope"></i> Contact Us</h3>
                 <div class="contact-list">
                     <a href="https://www.facebook.com/share/18pAb4Z6Y7/" class="contact-box" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-facebook bg-fb"></i> <span>Facebook Account</span>
+                        <i class="fab fa-facebook bg-fb"></i> <span>Contact to FB</span>
                     </a>
                     <a href="https://tiktok.com/@dailywageapp" class="contact-box" target="_blank">
                         <i class="fab fa-tiktok bg-tt"></i> <span>@dailywageapp (TikTok)</span>
@@ -667,9 +656,19 @@
         }
 
         /* --- Download App --- */
+        function confirmDownload(event, apkUrl, appName) {
+            event.preventDefault();
+            if (window.confirm(`${appName} ကို download လုပ်မလား?`)) {
+                window.location.href = apkUrl;
+            }
+            return false;
+        }
+
         function downloadApp() {
             const apkUrl = 'https://github.com/daily-Y-App/Apk-download/releases/download/V6/daily.wagev1.1.2.apk';
-            window.location.href = apkUrl;
+            if (window.confirm('Daily Wage App ကို download လုပ်မလား?')) {
+                window.location.href = apkUrl;
+            }
         }
     </script>
 </body>
